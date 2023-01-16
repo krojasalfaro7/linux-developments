@@ -1,0 +1,113 @@
+Listar branc disponibles en el repositorio remoto y local
+
+	git branch -a
+
+
+Permite simular la limpieza de las ramas locales (branch)
+
+	git remote prune origin --dry-run
+
+
+Permite ejecutar la limpieza de ramas locales
+
+	git remote prune origin // Esto se ejecuta si en el repositorio se hacer un merge o se elimina o modifica alguna rama.
+
+
+Permite cambiar de branch
+
+	git checkout nombredelarama (git branch -a para saber las ramas disponibles)
+
+
+Crear y posicionarse en una nueva rama:
+ 
+	$ git checkout -b nueva_rama
+
+	o
+
+	$ git branch nueva_rama
+	$ git checkout nueva_rama
+
+
+Eliminar una rama existente:
+
+	$ git branch -d rama
+
+Fusionar ramas
+
+	$ git merge nueva_rama
+
+
+==================================================================================================
+	(MEJORAR)Para clonar un repositorio de github(git) a partir del link html, ejemplo:
+
+git clone https://github.com/krojasalfaro7/Recursive-Factorial.git 
+
+Con esto se crea una carpeta con el nombre de Recursive-Factorial y dentro los
+ficheros.
+
+Proxima mejora, cuando es por conexion ssh a traves de una key
+
+===================================================================================================
+				Cambiar de Ramas en Git
+
+Listar que ramas existen en el directorio:
+
+git branch
+
+Incorporar una rama existente que no está en la lista:
+
+git branch "nombre de la rama"
+
+Cambiar de rama:
+
+git checkout "Nombre de la rama"
+===================================================================================================
+			Ver diferencias entre dos ramas Git
+
+git diff --stat "rama1" "rama2"
+
+Ejemplo:
+
+git diff --stat master ultimate
+
+===================================================================================================
+	Crear .gitignore para ignorar los archivos que no se desean para un push/pull
+
+nano .gitignore
+
+-Colocar los archivos a ignorar o un regex para varios con un patron. ejemplo:
+
+.~*
+
+-Esta notación ignorará todo archivo que empiece por .~ y termine en cualquier otra expresión
+
+git add .gitignore
+git commit -m "Comentario"
+git push origin rama
+
+===================================================================================================
+			Mostrar archivos ignorados dentro de .gitignore:
+
+git status --ignored
+
+==================================================================================================
+		Refrescar cacheo para el .gitignore e ignorar .idea y __pycache__ y .env
+
+
+git rm --cached -r */__pycache__
+git rm --cached -r .idea
+git rm .env --cached
+
+===================================================================================================
+
+			Cambiar url de un repositorio
+	
+
+git remote set-url origin git@github.com:repo/Repo.git
+
+===================================================================================================
+			Archivos rastreados o copiados de otro lugar (hard link)
+old mode  
+new mode  
+
+git config core.filemode false

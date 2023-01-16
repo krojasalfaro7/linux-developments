@@ -1,0 +1,1534 @@
+Comandos básicos de BASH:
+
+-ls = Lista el contenido de un directorio actual de trabajo. También se puede especificar un directorio en 
+particular. Por ejemplo: ls /home
+-ls -a = Se lista todos los contenidos del directorio actual o especificado, incluyendo los archivos ocultos.
+-ls -l = Listado completo de información (el parámetro "l" se puede combinar con otros parámetros útiles). 
+-ls -d = Listar los directorios en vez de dentro de ellos.
+-cd = cambiar de directorio, cd .. = retroceder un directorio
+-cp = copiar archivos.
+-cp -r = copia archivos de forma recursiva.
+-cp -u = copia de forma incremental.
+
+Funcionalidad de "cp -u" para copiar de forma incremental, util cuando se quiere copiar archivos mas recientes a un destino con el archivo mas antiguo o que no existe. Es decir, lo copia solo si no existe o es mas antiguo.
+Además, se puede combinar con los argumentos "cp -u -v -r" que copiaría de forma recursiva incremental y mostraria los detalles de las copias  
+
+-dir = parecido a ls.
+-mkdir = crea una carpeta
+-mv = mover archivos y carpetas, ejemplo = mv archivo /home/kevinc-debian/Documentos/
+-rmdir = eliminar un directorio vacio
+-exit = salir de una sesion de terminal
+-login = iniciar sesion en terminal, OJO: DEBE SER ROOT
+-su = Iniciar sesion como superusuario
+-sudo = ejecutar comandos directamente como root
+-rm = eliminar un archivo, rm -r = elimina directorios y ficheros
+-more = ver el contenido de un archivo, paso a paso
+-cat = ver el contenido de un archivo, de una vez
+-touch = Actualiza los registros de fecha y hora, con la fecha y hora actual de los ficheros indicados como argumento, además, si el fichero no existe, el comando touch lo crea. Su uso más frecuente es para crear archivos
+-man = ver el manual de un comando
+-chmod = Cambia permisos de un archivo o directorio
+-chmod -R = Cambia permisos de un directorio recursivamente
+-clear = limpiar/despalazar pantalla
+-who = mostrar los usuarios que han iniciado sesion
+-whoami = mostrar el usuario actual en sesion
+-nano = Editor de texto, se debe colocar el direcortio del archivo, excepto si la consola ya esta en ese directorio
+
+===========================================================================================================================================================
+
+Permisos de archivos:
+comando utilizado = chmod
+
+       ref A
+r (read) = lectura : 4
+w (write) = Escritura: 2
+x (execute) = Ejecutable: 1
+
+       ref B
+rwx = propetario = u
+rwx = grupo      = g
+rwx = otros      = o
+
+Ejemplo:
+
+Dar permisos;
+chmod u+rwx nombre_del_archivo ó chmod u=rwx nombre_del_archivo
+Quitar permisos:
+chmod u-rwx nombre_del_archivo
+
+Segundo ejemplo:
+
+Al haber solo 3 posibles valores de permisos que se le pueden asignar a los archivos, ya sea escritura, lectura y ejecucion
+las posibilidades que pueden tener esta definido por 2*3 = 8 posibilidades, entonces el comando chmod se puede
+utilizar de manera octal para los 3 tipos de ususarios, definidos en la ref B
+el valor en octal para cada permiso tiene un valor en octal definido en la ref A, donde lectura tiene el valor de 4,
+entonces si se quiere dar permiso de escritura y lectura al propetario, se debe utilizar chmod 4 + 2 = 6 => chmod 6, que es la suma del valor
+en octal del permiso de escritura y lectura para el propetario, ademas se pueden dar los permisos a los grupos y otros colocando en el mismo comando, 
+es decir, si se quiere dar permiso a un grupo de solo lectura se debe hacer de la siguente manera chmod 64, el valor de lectura que es 4, va despues del
+valor del permiso del propetario, de igual forma sucede con otros, el valor va despues de grupo, por ejemplo se quiere asignar el valor de solo lectura
+y ejecucion a otros, se debe hacer de la siguiente forma chmod 645
+
+OJO: Una carpeta debe tener permiso de ejecucion para abrir, en forma contraria un archivo si se abrir con solo el permiso de lectura
+
+==========================================================================================================================================================
+
+Herramientas de administracon de software APT:
+apt-get install, remove, purge, upgrade, update, dist-upgrade, apt-cache search
+
+================================================================================
+			Comprimir y Descomprimir archivos
+
+Archivos .tar.gz:
+Comprimir: tar -zcvf empaquetado.tar.gz /carpeta/a/empaquetar/
+Descomprimir: tar -zxvf archivo.tar.gz
+
+Archivos .tar.bz2:
+Descomprimir: tar -jxvf nombre.tar.bz2
+
+Archivos .tar:
+Empaquetar: tar -cvf paquete.tar /dir/a/comprimir/
+Desempaquetar: tar -xvf paquete.tar
+
+Archivos .gz:
+Comprimir: gzip -9 index.php
+Descomprimir: gzip -d index.php.gz
+
+Archivos .tar.xz
+Descomprimir: tar -Jxvf nombre.tar.xz ó tar -xvf nombre.tar.xz
+
+Archivos .zip:
+Comprimir: zip archivo.zip carpeta
+Descomprimir: unzip archivo.zip
+
+Archivos .rar
+Comprimir: rar a nombre.rar ficheros
+Descomprimir: unrar x archivo.rar
+
+==================================================================================================================
+
+Ejecutar script de python2 o 3 en el shell:
+
+1) Crear el nombre del archivo con el comando:
+
+touch nombredelarchivo.py
+
+2) Luego, darle los permisos de lectura ejecucion y escritura. ejemplo
+
+chmod 7 nombredelarchivo.py ó chmod 777 nombredelarchivo.py ó chmod +xwr nombredelarchivo.py
+
+3) Despues de crear el archivo con los permisos de ejecucion, escritura y lectura se debe colocar en la primera linea del archivo de python la siguiente
+ruta:
+
+#!/usr/bin/python ó #!/usr/bin/python2 ó  #!/usr/bin/python3
+
+Si se desconoce la direccion del interprete, ejecute el siguiente comando:
+
+which python
+
+Ese comando indicará la direción del interprete
+
+4) Después de tener todo el programa listo, se debe ejecutar con el siguiente comando:
+
+./nombredelarchivo.py ó python nombredelarchivo.py
+
+Y listo. 
+
+==========================================================================================================================================================
+
+Compilar y ejecutar programas en C.
+
+1) Crear el archivo con su extension y darle los permisos de escritura, lectura y ejecucion, siguiendo la misma forma que python.
+2) Editar y crear el codigo fuente.
+3) Luego de tener el codigo se procede a compilar, utilizando el siguiente comando:
+gcc script.c -o nombredesalida    también   gcc script.c -o nombredesalida -Wall -pedantic
+
+el segundo comando es para que se den detalles y errores al momento de compilar el script
+
+4) luego de compilar y tener el nombre del ejecutable, el script se ejecuta con el siguiente comando:
+
+./nombredesalida
+
+y listo se ejecuta el script programado.
+
+============================================================================================================================================================
+Agregar direcciones a la variable de entorno PATH
+
+1) Primera Forma:
+
+Agregar el directorio a la variable PATH con el siguiente comando de ejemplo:
+
+
+echo 'export PATH=$PATH:/home/kevinc-debian/"programa_ejecutable ó solo la direccion donde se encuentra"' >> /home/kevinc-debian/.bashrc
+
+y listo.
+
+2) Segunda forma:
+
+Editar el archivo .bashrc con cualquier editor de texto, ya sea nano o gedit, y dirigirse a la ultima linea y colocar la direccion donde se encuentra
+el archivo de preferencia.
+
+EJEMPLO:
+
+1) echo 'export PATH=$PATH:/home/kevinc-debian/Documentos/sublime_text_3/' >> /home/kevinc-debian/.bashrc
+
+2)- nano /home/kevinc-debian/.bashrc
+- Dirigirse a la ultima linea del Programa y copiar: export PATH=$PATH:/home/kevinc-debian/Documentos/sublime_text_3/
+
+=======================================================================================================================================================
+CONEXIÓN REMOTA VIA SSH:
+
+1)Instalar ssh con el siguiente comando: apt-get install openssh-server 
+2)Para conectarse remotatemente via ssh, debe ejecutar el siguiente comando:
+
+ssh nombredeusuario@direccionip, luego ingresar contraseña de usuario. EJEMPLO:
+
+ssh kevin-debian@192.168.1.7
+Ingresar contraseña: XXXXXX
+
+3) Copiar archivos, importar y exportar:
+
+Para exportar:
+
+scp archivo.txt nombredeusuario@direccion_ip:/home/nombredeusuario
+
+EJEMPLO:
+
+scp archivo.txt kevin-debian@192.168.1.7:/home/kevin-debian/
+
+Para importar:
+
+scp nombredeusuario@direccion_ip:/home/nombredeusuario/archivo.txt /home/este_usuario/Carpeta 
+
+EJEMPLO:
+
+scp kevin-debian@192.168.1.7:/home/kevin-debian/archivo.txt /home/kevinc-debian/Documentos
+
+4) Copiar directorio completo:
+
+scp -r /home/este_equipo/carpeta nombredeusuario@direccion_ip:/home/nombredeusuario
+
+================================================================================================
+Instalar driver:
+
+1) Primera forma:
+
+Descargar el driver y copiarlo en el siguiente directorio:
+
+/lib/firmware
+
+===========================================================
+Abrir un archivo en PDF
+
+Ejecutar el siguiente comando:
+
+evince nombredelarchivo.pdf
+
+==========================================
+Para ver que shell está en uso: 
+
+Utilizar el comando "echo $SHELL"
+
+Para ver la versión del shell bash:
+
+Utilizar el comando '/bin/bash --version'
+
+=================================================================================================================
+Iniciar bootear un dispositivo USB desde Grub2
+
+Primero presionar la letra "c" cuando aparezca el prompt de grub, luego utilizar los siguientes comandos:
+
+set root=(hdN)        <"Pulsando TAB después de '(hd' se listarán todos los dipositivos del sistema."
+chainloader +N         "Usar esto para verificar el número que le corresponde al dispositivo USB, desconectando"
+boot                   "reiniciando, verificando, conectando otra vez, y verificando otra vez.">
+
+Donde "N" es la enumeración de dispositivo de almacenamiento que se encuentra conectado a los perifericos del PC. 
+
+Ejemplos:
+ 
+*Disco Duro (Todo el disco duro, no se toman en cuenta las particiones) = hd0.
+*Pendrive USB = hd1.
+*Pendrive USB2 = hd2.
+
+OJO = hd0, es "casi siempre" donde se inicia grub.
+
+=================================================================================================================
+Instalación y uso de servidor FTP (ProFTPD) "Básico"
+
+apt-get install proftpd-basic proftpd-doc
+
+Luego abrir con un editor de texto el archivo de configuración ubicado en la ruta: /etc/proftpd/proftpd.conf
+
+Si el servidor va a utilizar la IPv4, entonces se debe desactivar el soporte para la IPv6 en una
+linea parecida a la siguiente:
+
+#[...]
+# Set off to disable IPv6 support which is annoying on IPv4 only boxes.
+UseIPv6                         off
+#[...]
+
+Luego, verificar que el servidor esté configurado como "standalone" como en la siguiente linea:
+
+#[...]
+ServerName                      "Debian"
+ServerType                      standalone
+DeferWelcome                    off
+#[...]
+
+OJO: Cada cambio hará efecto luego de reiniciar el servidor 
+con el siguiente comando: /etc/init.d/proftpd restart
+
+Para limitar el acceso sólo al directorio inicial, establecer tal ruta en la línea DefaultRoot:
+
+# Use this to jail all users in their homes
+DefaultRoot                     /
+
+Posteriormente, crear un usuario para que tenga acceso al servidor, pero primero se debe asegurar que esté 
+insertado /bin/false en /etc/shells. Si no está, utilizar el siguiente comando para insertarlo:
+
+echo '/bin/false' >> /etc/shells ó echo "/bin/false" >> /etc/shells
+
+ESTO CON LA INTENCIÓN DE QUE EL USUARIO QUE ESTE INTERACTUANDO CON EL SERVIDOR Y QUIERA INICIAR SESIÓN
+EN EL SHELL, LE DEVUELVA FALSE E INMEDIATAMENTE NIEGA EL PERMISO PARA PODER INGRESAR.
+
+Ya listo, ahora se debe crear el usuario con el siguiente comando:
+
+adduser user1 --shell /bin/false --home /home/user1
+
+Donde "user1" es el nombre que tendrá el nuevo usuario y "/home/user1" es el directorio donde estará su 
+sistema de ficheros.
+
+En el prompt que aparece, se debe indicar la contraseña y otros datos relacionados con el perfil del usuario.
+
+Seguidamente añadir en el archivo de configuración /etc/proftpd/proftpd.conf el perfil para el cliente FTP
+recien creado de la siguiente manera:
+
+<Directory /home/user1>
+  Umask 022 
+  AllowOverwrite off
+  <Limit LOGIN>
+    AllowUser user1
+    DenyAll
+  </Limit>
+  <Limit ALL>
+    AllowUser user1
+    DenyAll
+  </Limit>
+</Directory>
+
+Donde "Directory /home/user1" es el directorio donde está el sistema de ficheros del usuario
+y "AllowUser user1" debe ser remplazado por el nombre del usuario.
+
+Después de que todos los datos fueron modificados según los deseados, se debe reiniciar el servicio
+del servidor FTP con el siguiente comando: 
+
+/etc/init.d/proftpd restart
+
+Se puede consultar que usuarios están conectados al servidor FTP en tiempo real con los siguientes comandos:
+
+ftpwho
+ftptop
+
+Más información para configuraciones mas específicas y completas en las siguientes páginas web:
+
+https://www.ionos.es/digitalguide/servidores/configuracion/servidor-ftp-en-debian/
+https://servidordebian.org/es/squeeze/internet/ftp/start
+http://jcnicaro.cubava.cu/2017/10/13/instalar-y-configurar-un-servidor-ftp-en-debian/
+
+==============================================================================================================
+
+Reparar un disco duro con badblocks
+
+Verificar primero el hdd que se desea reparar con fdisk, además, es recomendable desmontar el hdd del sistema
+y luego ejecutar el siguiente comando:
+
+badblocks -svnf /dev/sdX
+
+Donde: 
+
+-s: Se visualiza el escaneo del disco, y se muestra el proceso a base a porcentaje del 100%.
+-v: Se activa el modo verboso, para mostrar los errores encontrados.
+-n: Indica que se reparen los sectores en un modo no destructivo, y así evitar la perdida de información.
+-f: Permite forzar la lectura y escritura en dispositivos que están montados.
+
+==============================================================================================================
+
+Dependencias incumplidas. Intente «apt --fix-broken install» sin paquetes (o especifique una solución)
+
+======================================================================================================
+
+Eliminar un usuario y sus achivos
+
+deluser --remove-home usuario
+
+============================================================
+
+Saber que versión de Debian está instalada en la PC o laptop
+
+Comando: lsb_release -a
+
+===============================================================================================================
+
+Repositorios (Información básica "MEJORAR")
+
+Se puede añadir un repositorio en el archivo "/etc/apt/sources.list" o 
+se puede crear un archivo *.list en el directorio "/etc/apt/sources.list.d/" con la información correspondiente.
+
+
+Ejemplo (OPCIÓN 1):
+
+root@Kevin-Debian:~# cat /etc/apt/sources.list
+
+#deb cdrom:[Debian GNU/Linux 9.6.0 _Stretch_ - Official amd64 NETINST 20181110-11:34]/ stretch main
+
+#deb cdrom:[Debian GNU/Linux 9.6.0 _Stretch_ - Official amd64 NETINST 20181110-11:34]/ stretch main
+
+deb http://deb.debian.org/debian/ stretch main
+deb-src http://deb.debian.org/debian/ stretch main
+
+deb http://security.debian.org/debian-security stretch/updates main
+deb-src http://security.debian.org/debian-security stretch/updates main
+
+# stretch-updates, previously known as 'volatile'
+deb http://deb.debian.org/debian/ stretch-updates main
+deb-src http://deb.debian.org/debian/ stretch-updates main
+
+deb http://ftp.debian.org/debian/ unstable main contrib non-free
+
+.............................................................
+deb https://dl.winehq.org/wine-builds/debian/ stretch main
+.............................................................
+
+
+Ejemplo (OPCIÓN 2):
+
+root@Kevin-Debian:~# ls /etc/apt/sources.list.d/
+wine.list
+root@Kevin-Debian:~# cat /etc/apt/sources.list.d/wine.list
+............................................................. 
+deb https://dl.winehq.org/wine-builds/debian/ stretch main
+.............................................................
+
+================================================================================================================
+Comando tee:
+
+Permite guardar la salida de un comando en un archivo, y también imprime la misma salida por pantalla.
+
+Su uso se debe combinar con una tuberia "|" para pasarle el resultado que debe imprimir por pantalla cualquier
+comando, como parámetro al comando tee. Ejemplo:
+
+ls -l | tee file.txt
+
+Si por alguna razón el archivo file.txt tiene datos que no se desean sobrescribir, se puede usar el parámetro
+"--append" para que la salida sea copiada después de los datos que estaban escritos. Ejemplo: 
+
+ls -l | tee --append file.txt
+
+================================================================================================================
+
+Comando "dd" (data duplicator = duplicador de datos):
+
+dd if=input_data of=output_data [options]
+
+input_data y output_data pueden ser discos, particiones, archivos, dispositivos, entre otros.
+
+Ejemplos:
+
+
+dd if=/dev/urandom of=/dev/sda bs=4k -» Llena el disco con datos aleartorios
+
+dd if=/dev/sda of=/dev/sdb bs=4096 -» Duplicación disco-a-disco
+
+dd if=/dev/zero of=/dev/sda bs=4k -» Limpia un disco duro (puede necesitar ser repetido)
+
+dd if=/dev/sda | hexdump -C | grep [^00] -» Verifica si el disco está realmente puesto a cero
+
+dd if=/dev/urandom of=/home/$user/hugefile bs=4096 -» Llena una partición (¡Cuidado con las particiones de 
+sistema!)
+
+dd if=/dev/urandom of=myfile bs=6703104 count=1 -» Codifica un archivo (tal vez antes de borrarlo)
+
+dd if=/dev/sda3 of=/dev/sdb3 bs=4096 conv=notrunc,noerror -» Copia una partición hacia otra partición
+
+dd if=/proc/filesystems | hexdump -C | less -» Visualiza los sistemas de ficheros disponibles
+
+dd if=/proc/partitions | hexdump -C | less -» Visualiza las particiones disponibles en kb
+
+dd if=/dev/sdb2 ibs=4096 | gzip > partition.image.gz conv=noerror -» Crea una imagen gzip de la segunda 
+partición del segundo disco
+
+dd bs=10240 cbs=80 conv=ascii,unblock if=/dev/st0 of=ascii.out -» Copia el contenido de una cinta a un archivo
+convirtiendo de EBCDIC a ASCII
+
+dd if=/dev/st0 ibs=1024 obs=2048 of=/dev/st1 -» Copia de un dispositivo de bloques de 1KB a un dispositivo de 
+bloques de 2KB
+
+dd if=/dev/zero of=/dev/null bs=100M count=100
+100+0 records in
+100+0 records out
+10485760000 bytes (10 GB) copied,
+
+5.62955 s, 1.9 GB/s
+
+Copia 10 GB de ceros a la papelera de reciclaje.
+
+dd if=/dev/zero of=/dev/sda bs=512 count=2
+fdisk -s /dev/sda
+dd if=/dev/zero of=/dev/sda seek=(number_of_sectors – 20) bs=1k
+
+Borra GPT del disco. Como GPT escribe los datos al principio
+Y al final del disco, después de borrar desde el principio, tenemos que encontrar el número de 
+sectores (el segundo comando), y entonces borrar los 20 últimos sectores.
+
+dd if=/home/$user/bootimage.img of=/dev/sdc -» Crea un disco UDB booteable (mostrado aquí como /dev/sdc)
+
+dd if=/dev/sda of=/dev/null bs=1m -» Una buena manera de buscar bloques malos. Relacionados con respaldos 
+y sistemas
+
+dd if=/dev/sda of=/dev/fd0 bs=512 count=1 -» Copia el MBR a un disco flexible
+
+dd if=/dev/sda1 of=/dev/sdb1 bs=4096 -» Duplicación disco-a-disco
+
+dd if=/dev/sr0 of=/home/$user/mycdimage.iso\ bs=2048 conv=nosync -» Crea una imagen de un CD
+
+mount -o loop /home/$user/mycdimage.iso /mnt/cdimages/ -» Monta localmente la imagen mencionada
+
+dd if=/dev/sda of=/dev/sdb bs=64k conv=sync -» Útil cuando se reemplaza un disco por otro de idéntico tamaño.
+
+dd if=/dev/sda2 of=/home/$user/hddimage1.img bs=1M count=4430
+dd if=/dev/sda2 of=/home/$user/hddimage2.img bs=1M count=8860
+[…]
+
+Crea imágenes en DVD de una partición (útil para hacer respaldos)
+
+dd if=/$location/hddimage1.img of=/dev/sda2 bs=1M
+dd if=/$location/hddimage2.img of=/dev/sda2 seek=4430 bs=1M
+dd if=/$location/hddimage3.img of=/dev/sda2 seek=8860 bs=1M
+[etc…]
+
+Restaura del respaldo anterior
+
+dd if=/dev/zero count=1 bs=1024 seek=1 of=/dev/sda6 -» Destruye el superbloque
+
+dd if=/dev/zero count=1 bs=4096 seek=0 of=/dev/sda5 -» Otra forma de destruir el superbloque
+
+dd if=/home/$user/suspicious.doc | clamscan -» Verifica el archivo en busca de virus (necesita ClamAV)
+
+dd if=/home/$user/binary file | hexdump -C | less -» Ver el contenido de un archivo binario (necesita hexdump)
+
+dd if=/home/$user/bigfile of=/dev/null
+dd if=/dev/zero of=/home/$user/bigfile bs=1024 count=1000000
+
+Realiza un benchmark de la velocidad de lectura/escritura del disco duro
+
+dd if=/dev/sda of=/dev/sda -» Da nueva vida a viejos discos duros que no han sido usados por un tiempo 
+(los discos deben estar “unmounted”)
+
+dd if=/dev/mem | strings | grep ‘string_to_search’ -» Examina el contenido de la memoria 
+(legible para humanos, es decir)
+
+dd if=/dev/fd0 of=/home/$user/floppy.image bs=2x80x18b conv=notrunc -» Copia un disco flexible
+
+dd if=/proc/kcore | hexdump -C | less -» Muestra la memoria virtual
+
+dd if=/proc/filesystems | hexdump -C | less -» Visualiza los sistemas de ficheros disponibles
+
+dd if=/proc/kallsyms | hexdump -C | less -» Muestra los módulos cargados
+
+dd if=/proc/interrupts | hexdump -C | less -» Muestra la tabla de interrupciones
+
+dd if=/proc/uptime | hexdump -C | less -» Muestra el tiempo de actividad en segundos
+
+dd if=/proc/partitions | hexdump -C | less -» Visualiza las particiones disponibles en kb
+
+dd if=/proc/meminfo | hexdump -C | less -» Muestra el estado de la memoria
+
+dd if=/dev/urandom of=/home/$user/myrandom bs=100 count=1 -» Crea un archivo de 1kb de jerigonza aleatoria
+
+dd if=/dev/mem of=/home/$user/mem.bin bs=1024 -» Crea una imagen del estado actual de la memoria del sistema
+
+dd if=/home/$user/myfile -» Imprime el archivo a stdout
+
+dd if=/dev/sda2 bs=16065 | hexdump -C | grep ‘text_to_search’ -» Busca una cadena en una partición entera; 
+incluso si está asegurada, usted puede bootear un liveCD
+
+dd if=/home/$user/file.bin skip=64k bs=1 of=/home/$user/convfile.bin -» Copia file.bin a convfile.bin 
+saltándose los primeros 64 kb
+
+dd if=/home/$user/bootimage.img of=/dev/sdc -» Crea un disco UDB booteable (mostrado aquí como /dev/sdc)
+
+dd if=/dev/mem bs=1k skip=768 count=256 2>/dev/null | strings -n 8 -» Lee la BIOS.
+
+dd bs=1k if=imagefile.nrg of=imagefile.iso skip=300k -» Convierte una imagen de Nero en una imagen 
+ISO estándar. Esto es posible porque la única diferencia entre las dos son los 300 kB de encabezamiento 
+que Nero adiciona a una imagen ISO estándar.
+
+echo -n “hello vertical world” | dd cbs=1 conv=unblock 2> /dev/null -» Inténtalo, es seguro.
+
+dd if=/dev/sda1 | gzip -c | split -b 2000m – \ /mnt/hdc1/backup.img.gz -» Crea una imagen gzip de una 
+partición utilizando división
+
+cat /mnt/hdc1/backup.img.gz.* | gzip -dc | dd of=/dev/sda1 -» Restaura el respaldo anterior
+
+dd if=/dev/zero of=myimage bs=1024 count=10240 -» Crea una imagen vacía del disco
+
+dd ibs=10 skip=1 -» Divide los primeros 10 bytes de stdin
+
+dd bs=265b conv=noerror if=/dev/st0 of=/tmp/bad.tape.image -» Hace una imagen de una cinta con sitios malos
+
+dd if=/dev/sda count=1 | hexdump -C -» Visualiza su MBR
+
+dd if=/dev/sda | nc -l 10001 nc $system_to_backup_IP 10001 | dd of=sysbackupsda.img -» Respaldo rápido de 
+la red usando netcat
+
+dd if=/dev/zero of=/dev/sdX bs=1024000 count=1 -» Limpia los primeros 10MB de la partición
+
+dd if=/dev/zero of=tmpswap bs=1k
+count=1000000
+chmod 600 tmpswap
+mkswap tmpswap
+swapon tmpswap
+
+Crea un espacio temporal de intercambio
+
+dd if=/dev/sda of=/dev/null bs=1024k count=1024
+1073741824 bytes (1.1 GB) copied,
+24.1684 s, 44.4 MB/s
+
+Determina la velocidad secuencial de I/O de su disco.
+
+dd if=/dev/random count=1 2>/dev/null | od -t u1 |\ awk ‘{ print $2}’ | head -1 -» Genera un número aleatorio
+
+dd if=/dev/mem of=myRAM bs=1024 -» Copia la memoria RAM hacia un archivo
+
+dd if=/dev/sda bs=512 count=1 | od -xa -» Ver el contenido de su MBR en formato hex y ASCII
+
+dd if=/my/old/mbr of=/dev/sda bs=446 count=1 -» Restaura el MBR sin alterar el registro de la tabla de 
+partición el cual está entre 447 – 511 bytes
+
+dd if=/dev/sda1 | split -b 700m – sda1-image -» Crea una copia de la partición y salva imágenes donde el 
+tamaño máximo del volumen es 700MB
+
+ls -l | dd conv=ucase -» Convierte la salida de un comando en mayúsculas
+
+echo “MY UPPER CASE TEXT” | dd conv=lcase -» Convierte cualquier texto a minúsculas
+
+dd if=/etc/passwd cbs=132 conv=ebcdic of=/tmp/passwd.ebcdic -» Convierte el archivo de contraseñas del sistema
+a un archivo de longitud fija de formato EBCDIC
+
+dd if=text.ascii of=text.ebcdic conv=ebcdic -» Convierte de ASCII a EBCDIC
+
+dd if=myfile of=myfile conv=ucase -» Convierte un archivo a mayúsculas (simple SED o reemplazo tr)
+==============================================================================================================
+
+Dar formato a un pendrive USB (Versión Simple)
+
+En primer lugar el pendrive USB debe estar desmontado, se puede usar el comando umount para realizar dicha 
+acción. Ejemplo: umount /dev/sdX ó umount /media/PUNTODEMONTAJE
+
+1) Limpiar el pendrive USB (OPCIONAL)
+
+dd if=/dev/zero of=/dev/sdX bs=4k -> Limpia un disco duro (puede necesitar ser repetido)
+dd if=/dev/sda | hexdump -C | grep [^00] -> Verifica si el disco está realmente puesto a cero
+
+2) Crear una partición con el comando fdisk. Ejemplo de comando:
+
+fdisk /dev/sdX -> Seguir los pasos del comando. 
+
+Para obtener información de las opciones de fdisk, introducir "m", para eliminar una partición,
+introducir "d", para crear una partición, introducir "n"
+
+3) Dar formato a la partición con mkfs 
+
+mkfs.vfat -F 32 /dev/sdX -n nombre_del_dispositivo
+
+Donde mkfs.vfat, es el comando de mkfs para establecer un formato FAT, el parámetro "-F 32" establece el tipo
+de formato Fat32 y "/dev/sdX" es el dispositivo, y "-n nombre_del_dispositivo" es el nombre que obtendra el
+pendrive.
+
+============================================================================================================
+
+Copiar un texto o archivo de texto en el portapeles
+
+Comando usado: xclip
+
+Instalación apt-get install xclip
+
+Ejemplo 1:
+echo 'Prueba 1' | xclip -selection clipboard     ó    echo 'Prueba 1' | xclip -selection c
+
+Ejemplo 2: (OJO SOLO COPIA LO QUE ESTÁ DENTRO DEL FICHERO DE TEXTO, NO EL ARCHIVO "texto.txt" LITERAL)
+xclip -selection clipboard texto.txt     ó     xclip -selection c texto.txt
+
+xclip -se c -> Está seria la manera mas corta de escribir el comando "-se" es la abstracción de -selection
+y "c", la abstracción de clipboard.
+
+Ejemplo 3:
+ls -l | xclip -se c     ó     ls -l | xclip -selection clipboard
+
+===========================================================================================================
+
+Comando "du" (MEJORAR): Informa la cantidad de espacio de disco usado por los ficheros especificados.
+
+OJO, si no se especifica un fichero, "du" realiza el chequeo en el directorio actual (pwd).
+
+Ejemplo:
+
+du -skh /home/
+
+Dónde los parámetros:
+
+-s = Muestra el total del directorio especificado y no recursivamente dentro de cada fichero 
+dentro de él.
+
+-k = Expresa la salida en bloques de 1024 bytes.
+
+-h = Muestra la sálida para su fácil lectura legible.
+
+Información completa en: man du
+============================================================================================================
+
+				Cambiar propietarios de archivos y directorios:
+
+Cambiar propietario de un archivo:
+
+chown usuario archivo.txt
+
+Cambiar propietario de forma recursiva (carpeta):
+
+chown -R usuario /carpeta
+
+Cambiar usuario y grupo de un archivo:
+
+chown usuario:grupo archivo.txt
+
+Cambiar usuario y grupo de forma recursiva (carpeta):
+
+chown -R usuario:grupo /carpeta
+
+============================================================================================================
+
+Ver los procesos que corren con su nombre y PID:
+
+netstat -pant
+
+============================================================================================================
+
+		Enviar señales a los procesos corriendos en el sistema operativo:
+
+Sintaxis:
+
+kill SIGNAL PID
+
+Ejemplo:
+
+kill -9 564
+
+kill -l 	//Para ver el valor numerico realcionado al nombre de la señal
+
+Los cuales son estos:
+
+ 1) SIGHUP	 2) SIGINT	 3) SIGQUIT	 4) SIGILL	 5) SIGTRAP
+ 6) SIGABRT	 7) SIGBUS	 8) SIGFPE	 9) SIGKILL	10) SIGUSR1
+11) SIGSEGV	12) SIGUSR2	13) SIGPIPE	14) SIGALRM	15) SIGTERM
+16) SIGSTKFLT	17) SIGCHLD	18) SIGCONT	19) SIGSTOP	20) SIGTSTP
+21) SIGTTIN	22) SIGTTOU	23) SIGURG	24) SIGXCPU	25) SIGXFSZ
+26) SIGVTALRM	27) SIGPROF	28) SIGWINCH	29) SIGIO	30) SIGPWR
+31) SIGSYS	34) SIGRTMIN	35) SIGRTMIN+1	36) SIGRTMIN+2	37) SIGRTMIN+3
+38) SIGRTMIN+4	39) SIGRTMIN+5	40) SIGRTMIN+6	41) SIGRTMIN+7	42) SIGRTMIN+8
+43) SIGRTMIN+9	44) SIGRTMIN+10	45) SIGRTMIN+11	46) SIGRTMIN+12	47) SIGRTMIN+13
+48) SIGRTMIN+14	49) SIGRTMIN+15	50) SIGRTMAX-14	51) SIGRTMAX-13	52) SIGRTMAX-12
+53) SIGRTMAX-11	54) SIGRTMAX-10	55) SIGRTMAX-9	56) SIGRTMAX-8	57) SIGRTMAX-7
+58) SIGRTMAX-6	59) SIGRTMAX-5	60) SIGRTMAX-4	61) SIGRTMAX-3	62) SIGRTMAX-2
+63) SIGRTMAX-1	64) SIGRTMAX	
+
+Otra forma de detener un proceso es con el siguiente comando:
+
+service 'service_name' stop
+
+============================================================================================================
+
+					Eliminar un paquete
+
+De la manera simple (conociendo el nombre del paquete):
+
+apt remove nombre_del_paquete
+
+Alternativamente, si necesitamos eliminar el paquete junto con los archivos de configuración asociados entonces se usará:
+
+apt --purge remove nombre_del_paquete
+
+Si no conocemos el nombre del paquete a desinstalar, pero tenemos algún indicio de como comienza el nombre, así está a nuestro alcance usar el comando:
+
+apt remove paquete* 
+ó
+apt-get purge paquete*
+
+
+Desinstalando manualmente:
+
+Lo primero que requerimos es la lista de paquetes instalados por apt:
+
+apt list
+
+Si encontramos una regualidad, sólo como ejemplo, paquetes que se inicien con el string php5 entonces podremos preparar la lista de ellos en un formato apropiado usando el comando:
+
+apt list | grep '^paquete' | awk '{print $1}' FS="/" | tr "\n" " "
+Ahora si vínculamos la salida del comando anterior al comando de desinstalación:
+
+apt remove `apt list | grep '^paquete' | awk '{print $1}' FS="/" | tr "\n" " "`
+Así podríamos avanzar más rápido, pero existe una alto riesgo de equivocarnos.
+
+Referencias
+Comandos de Advanced Packing Tool:
+
+acción	Version antigua	Version moderna
+instalar	apt-get install	apt install
+desinstalar	apt-get remove	apt remove
+desinstalar [1]	apt-get --purge remove	apt remove purge
+mostrar detalles	apt-cache showpkg	apt show
+Advanced Packing Tool: https://help.ubuntu.com/lts/serverguide/apt.html.en, https://geek-university.com/linux/advanced-packaging-tool-apt/.
+Usando upgrade: https://help.ubuntu.com/lts/serverguide/installing-upgrading.html.en.
+La nueva cara del APT: https://hipertextual.com/archivo/2014/04/nuevo-apt-ubuntu/.
+
+============================================================================================================
+
+			Problema de sonido con auriculares o altavoces
+
+Cuando hay problemas de este tipo entrar en el panel del siguiente comando:
+
+alsamixer
+
+Luego presionar F6 para seleccionar la placa de sonido incorporada en la laptop, y posteriormente navegar con las flechas hasta llegar a la opción de 'speaker' y ajustar el volumen con las flechas
+ 
+Presionar F6 y seleccionar la placa de audio que tiene la laptop o computadora incorporada, luego, navegar con las flechas del telado hacia la opción de speaker y subir el volumen con las flechas 
+
+============================================================================================================
+
+		Crear un servicio y gestionarlo para que inicie al enceder la máquina:
+
+El script / binario / ejecutable
+En este ejemplo vamos a suponer que necesitamos ejecutar un script que hemos colocado en /usr/local/bin/miscript.sh (nombre genérico)… por supuesto cada uno podrá adaptarlo a sus necesidades.
+
+Cualquier archivo ejecutable, ya sea script o binario, vamos a poder cargarlo en nuestro sistema al momento de iniciar el sistema operativo.
+
+Cable aclarar que se ejecutará al iniciar el sistema operativo, no el escritorio del usuario, por lo que si tienen la idea de arrancar Rambox o Firefox, o Pidgin al iniciar su sesión, este tutorial no les va ayudar! Para ello hay que cargar el ejecutable de la aplicación entre los iniciados automáticamente con la sesión de escritorio. Esto depende del entorno de escritorio que usen, pero en general está en el menú configuración -> Aplicaciones de Inicio, o Aplicaciones de sesión, o similar.
+
+Por supuesto, el script o binario deberá tener permisos de ejecución, y para ellos podemos correr un comando similar a este:
+
+sudo chmod +x /usr/local/bin/miscript.sh
+
+Unidad de servicio systemd
+Luego tenemos que crear una unidad de servicio systemd (systemd serivce unit).
+
+Vamos a verlo funcionando con un ejemplo súper sencillo:
+
+[Unit]
+Description=<em class="replaceable">Mi script automatico</em>
+After=network.target
+
+[Service]
+ExecStart=<em>/usr/local/bin/miscript.sh</em>
+Type=oneshot
+RemainAfterExit=true
+
+[Install]
+WantedBy=default.target
+
+
+[Unit]
+Description=<em class="replaceable">Mi script automatico</em>
+After=network.target
+ 
+[Service]
+ExecStart=<em>/usr/local/bin/miscript.sh</em>
+Type=oneshot
+RemainAfterExit=true
+ 
+[Install]
+WantedBy=default.target
+Donde:
+
+Description: información descriptiva que es mostrada en el log de journal de systemd cuando ejecutamos «systemctl status servicio.service«
+After: indica el servicio luego del cual correrá nuestro script. Supongamos que el script debe realizar algunas operaciones de red… sería lógico ejecutarlo luego de que se haya corrido network.service, cierto?
+Se pueden agregar otros servicios separándolos por un espacio en blanco.
+ExecStart: permite especificar la ruta completa al script que vamos a ejecutar, el nuestro.
+Type: forking en este caso es utilizado por daemons o residentes para que realicen una clonación de la llamada al sistema. El proceso principal del servicio es creado con un pid especificado en el archivo de pid escrito a continuación.
+WantedBy: especifica dentro de qué «target» de systemd debe ser instalado. Dejémoslo en default.target.
+Sacando las opciones de Type, PIDFile y Description, esto es lo mínimo indispensable para poder ejecutar un script en systemd, las líneas mínimas para un service unit.
+
+¿Que queremos más configuraciones y adaptaciones para nuestro entorno? Nada mejor que acercarse por la mesa de ayuda:
+
+man systemd.service
+
+Luego debemos darle permisos al nuevo archivo .service:
+
+chmod 0644 /etc/systemd/system/miscript.service
+
+Por cierto, luego de crear nuestra unidad de servicio, o de modificarla en el futuro, siempre debemos ejecutar el comando:
+
+systemctl daemon-reload
+
+Habilitando y ejecutando
+Con estos pasos listos, ahora podremos habilitar el servicio con:
+
+systemctl enable miscript.service
+
+Y ejecutarlo con:
+
+systemctl start miscript.service
+
+Para otros comandos les recomiendo visitar SystemD vs SysVinit: algunos comandos.
+
+Al estar habilitado / enabled, y al haberlo «instalado» en el target por defecto (default.target en la última línea del ejemplo), podremos ver su enlace simbólico en /etc/systemd/system/default.target.wants/
+
+diego@cryptos:~/$ ls -l /etc/systemd/system/default.target.wants/
+total 0
+lrwxrwxrwx 1 root root 36 Mar 18 21:12 miscript.service -> /etc/systemd/system/miscript.service
+1
+2
+3
+diego@cryptos:~/$ ls -l /etc/systemd/system/default.target.wants/
+total 0
+lrwxrwxrwx 1 root root 36 Mar 18 21:12 miscript.service -> /etc/systemd/system/miscript.service
+Y por supuesto, si ejecutamos:
+
+systemctl disable miscript.service
+
+Estaremos eliminando dicho enlace simbólico.
+
+Esperamos les resulte interesante y útil!
+
+A futuro ampliaremos esta información con otros parámetros que pueden ser de interés para iniciar y detener servicios residentes del segundo plano.
+
+
+=============================================================================================================================================================
+
+								Cambiar nombre de la maquina
+
+Como superusuario(root):
+
+hostname nuevonombre
+
+nano /etc/hosts/ 
+
+Aquí modificar el viejo nombre con el nuevo. Guardar, salir y reiniciar la shell.
+
+Hacer lo mismo en:
+
+nano /etc/hostname
+
+=============================================================================================================================================================
+
+								Cambiar de directorio home
+
+usermod -d "directorio" -m usuario
+
+Ejemplo:
+
+usermod -d /home/kevin/ -m kevin
+
+==================================================================================================================================================================
+
+						Pasos para enjaular a un usuario en un directorio utilizando chroot
+
+Crear el usuario 
+
+adduser backups
+passwd backups
+
+Crear una shell -> /bin/backups:
+
+nano /bin/backups
+
+#!/bin/bash
+/usr/bin/sudo /usr/sbin/chroot /home/admin/backups_db /bin/bash
+
+Dar permisos de ejecución a la nueva shell:
+
+chmod +x /bin/backups
+
+Agregar shell a /etc/shells:
+
+echo '/bin/backups' >> /etc/shells
+
+Crear directorios para ejecución de la shell:
+
+mkdir bin
+mkdir usr
+mkdir usr/bin
+mkdir lib
+
+Ver que biblioteca usa /bin/bash:
+
+ldd /bin/bash
+
+Luego copiarlas al directorio lib creado anteriormente
+
+cp biblioteca lib
+...
+
+ejemplo:
+
+root@ip-172-26-13-244:/home/admin/backups_db# ldd /bin/bash
+	linux-vdso.so.1 (0x00007ffca59c2000)
+	libtinfo.so.5 => /lib/x86_64-linux-gnu/libtinfo.so.5 (0x00007f503a9a5000)
+	libdl.so.2 => /lib/x86_64-linux-gnu/libdl.so.2 (0x00007f503a7a1000)
+	libc.so.6 => /lib/x86_64-linux-gnu/libc.so.6 (0x00007f503a402000)
+	/lib64/ld-linux-x86-64.so.2 (0x00007f503abcf000)
+root@ip-172-26-13-244:/home/admin/backups_db# cp /lib/x86_64-linux-gnu/libtinfo.so.5 lib
+root@ip-172-26-13-244:/home/admin/backups_db# cp /lib/x86_64-linux-gnu/libdl.so.2 lib
+root@ip-172-26-13-244:/home/admin/backups_db# cp /lib/x86_64-linux-gnu/libc.so.6 lib
+root@ip-172-26-13-244:/home/admin/backups_db# cp /lib64/ld-linux-x86-64.so.2 lib
+
+
+Luego copiar /bin/bash:
+
+cp /bin/bash /bin
+
+Ver las bibliotecas de /bin/ls 
+
+ldd /bin/ls
+
+Y copiarlas
+
+cp /bin/ls bin && cp /bin/cp bin
+
+Establecer la shell del usuario
+
+usermod -s /bin/backups backups
+
+Indicarle a sudo que el usuario "backups" va a ejecutar la orden chroot:
+
+visudo
+
+agregar despues de la linea 
+# User privilege specification
+root ALL=(ALL) ALL
+
+la siguiente linea
+
+backups ALL=/usr/sbin/chroot
+
+Asignarle los permisos de ese usuario a al directorio donde ejecutara su shell
+
+chown -R backups /home/admin/backups_db
+
+Loguear al usuario con el siguiente comando:
+
+sudo su backups
+
+Si se tiene un sistema de 64bits y da el siguiente error:
+
+/usr/sbin/chroot: failed to run command ‘/bin/bash’: No such file or directory
+
+utilizar los siguientes comandos:
+
+cp -a /usr /home/admin/backups_db
+cp -a /lib /home/admin/backups_db
+cp -a /lib64 /home/admin/backups_db
+
+cp -r /lib64 lib64 
+cp -a /usr usr
+cp -a /lib lib
+cp -a /lib64 lib64
+
+=============================================================================================================================================================================
+
+				Pasos para crear un par de llaves publicas y privadas para la conexion SSH de un cliente amazon web service AWS
+ 
+establecer el directorio del usuario si no lo tiene por defecto:
+
+usermod -d /ruta/ -m usuario
+
+Ejemplo:
+
+usermod -d /home/admin/backups_db -m backups
+
+Crear la carpeta .ssh en la raiz del directorio del usuario
+
+mkdir .ssh
+
+Ejemplo:
+
+mkdir /home/admin/backups_db/.ssh
+
+Crear la llave publica y privada con el siguiente comando:
+
+ssh-keygen -t rsa -b 4096 -C "krojas@skyflot.com"
+
+Copiar la llave publica .pub dentro de authorized_keys. Ejemplo:
+
+cat /home/admin/backups_db/.ssh/id_rsa.pub >> authorized_keys
+
+Copiar la llave privada y guardarla para su posterior uso
+
+SI SE VA A USAR PUTTY
+
+apt-get install putty-tools
+
+puttygen -t rsa -C "my home key" -o mykey.ppk
+
+============================================================================================================================================================================
+								Agregar un usuario a un grupo
+
+usermod -a -G grupo usuario
+
+Ejemplo:
+
+usermod -a -G root kevin
+
+===========================================================================================================================================================================
+								Ver en que grupo está un usuario
+
+groups usuario
+
+Ejemplo:
+
+groups kevin
+
+=======================================================================================================================================================
+						Comando grep(Mejorar)
+
+Invertir el significado de la busqueda
+
+$ grep -v regexp ficheros		
+ó	
+$ cat fichero | grep -v regex
+
+Mostrar número de linea de la coincidencia 
+
+$ grep -n regexp ficheros
+
+Mostar solo el archivo donde se encuentra la coincidencia
+
+$ grep -l "texto"
+
+Ejemplo, el siguiente comando busca la palabra mango en un directorio, con xargs toma cada nombre de los ficheros de salida que coincidieron y se los pasa uno a uno a sed para que lo reemplace con pera:
+
+grep -rl "mango" | xargs sed -i 's/mango/pera/g'
+
+
+
+
+======================================================================================================================================================
+				Mostrar una cantidad de números de lineas de un fichero
+
+head fichero -nVALOR
+
+Donde valor es un entero.
+
+Ejemplo:
+
+head texto.txt -n10
+
+=======================================================================================================================================================
+							lbslk
+
+Comando para ver los puntos de montaje de las particiones que tiene el discoduro o otra unidad externa actualmente en el sistema operativo.
+Util para verificar si está montado o demontado la partición.
+
+lsblk
+
+=====================================================================================================================================================
+						Comando dd con progreso
+
+dd if=/dev/sdX | pv | dd of=/dev/sdY bs=4M conv=fdatasync
+
+=====================================================================================================================================================
+					Bootear Pendrive USB con comando dd con progreso
+
+Desmontar la partición que se va a bootear con
+
+umount /dev/sdX
+
+Luego, verificar que realmente la partición no esté montada
+
+lsblk
+
+Finalmente, copiar el .iso en la partición del Pendrive USB
+
+sudo dd if=archivo.iso | pv | sudo dd of=/dev/sdX bs=4M conv=fdatasync 
+
+=====================================================================================================================================================
+					Borrar contraseña de Windows desde Linux con chntpw
+
+El comando a utilizar es: chntpw
+
+Montar la partición de Windws y luego ejecutar el siguiente comando:
+
+chntpw  -i  /directorio_de_montaje/Windows/System32/config/SAM
+
+Ejemplo:
+
+chntpw  -i  /media/Windows/System32/config/SAM
+
+Dentro, se inicializará una shell interactiva que permite cambiar varios atributos de los usuarios dentro del SO
+
+=====================================================================================================================================================
+					Establecer nombres de dominios locales					
+
+nano /etc/hosts
+
+Una vez dentro, se establece el nombre de dominio que corresponde a una IP local de la subred
+
+=====================================================================================================================================================
+					Mostrar log en tiempo real
+
+tail -f log
+
+Ejemplo:
+
+tail -f /var/log/apache2/error.log
+
+=================================================================================================================
+				Mostrar version de Kernel instalado en el SO
+
+uname -r
+ó para obtener mas información:
+uname -a	 
+
+================================================================================================================
+			Configurar varias versiones de java, javac, jar, jshell
+
+-En primer lugar se debe descargar e intalar java(jdk_versión deseada, por ejemplo jdk11) comunmente en la ruta
+/usr/lib/jvm/
+
+-Se puede tomar como ejemplo de instalación los siguientes pasos:
+
+wget https://download.java.net/openjdk/jdk11/ri/openjdk-11+28_linux-x64_bin.tar.gz
+chmod +x openjdk-11+28_linux-x64_bin.tar.gz
+mkdir /usr/lib/jvm/open-jdk-11
+tar -xzf ./openjdk-11+28_linux-x64_bin.tar.gz -C /usr/lib/jvm/open-jdk-11 --strip-components=1
+
+-Listar las alternativas de java, javac, jar, jshell instaladas en el SO respectivamente:
+
+update-alternatives --list java
+update-alternatives --list javac
+update-alternatives --list jar
+update-alternatives --list jshell
+
+-Mostar las alternativas instaladas con una descripción más completa de java, javac, jar, jshell:
+
+update-alternatives --display java
+update-alternatives --display javac
+update-alternatives --display jar
+update-alternatives --display jshell
+
+-Instalar y/o actualizar las alternativas a java, javac, jar y jshell respectivamente:
+
+sudo update-alternatives --install /usr/bin/java java /usr/lib/jvm/open-jdk-11/bin/java 1
+sudo update-alternatives --install /usr/bin/javac javac /usr/lib/jvm/open-jdk-11/bin/javac 1
+sudo update-alternatives --install /usr/bin/jar jar /usr/lib/jvm/open-jdk-11/bin/jar 1
+sudo update-alternatives --install /usr/bin/jshell jshell /usr/lib/jvm/open-jdk-11/bin/jshell 1
+
+-Establecer la versión de java, javac, jar y jshell a usar respectivamente:
+
+sudo update-alternatives --config java
+sudo update-alternatives --config javac
+sudo update-alternatives --config jar
+sudo update-alternatives --config jshell
+
+Elegir el número deseado a establecer respectivamente (Por ejemplo: para java /usr/lib/jvm/open-jdk-11/bin/java)
+
+-Finalmente configurar la variable JAVA_HOME:
+
+sudo nano /etc/environment
+
+-Establecer el directorio donde se encuentra el java deseado al valor de JAVA_HOME, en este caso "/usr/lib/jvm/open-jdk-11/bin/" cabe destacar que se toma la ruta absoluta en sin el java, ya que se deben utilizar los demas recursos. Por ejemplo:
+
+JAVA_HOME=/usr/lib/jvm/open-jdk-11/bin
+
+-Cargar los cambios de /etc/environment de la sesión actual:
+
+source /etc/environment
+
+Fuente: https://dev.to/thegroo/install-and-manage-multiple-java-versions-on-linux-using-alternatives-5e93
+=================================================================================================================
+			Comparar dos ficheros con diff, colordiff y sdiff
+ 
+-Primer caso con sdiff
+
+sdiff texto1 texto2 | grep \| -n
+
+-Este caso imprime los dos ficheros uno al lado del otro y los que son diferentes le agrega un '|' entre los dos. Además se le pasa como argumento la salida como entrada a grep para encontrar '|' y sólo imprime los diferentes con su número de linea correspondiente (argumento -n de grep)
+
+-Segundo caso con diff
+
+diff texto1 texto2
+
+-Este caso imprime las lineas que son diferentes con su respectivo número de linea. La diferencia con el comando anterior es que es coloca las lineas diferentes una debajo de la otra.
+
+-Tercer caso colordiff
+
+colordiff texto1 texto2
+
+-Hace exactamente lo mismo que el anterior pero con la diferencia de que resalta las lineas de cada fichero diferente en un color en particular
+
+=================================================================================================================
+			Crear Alias para conexiones via protocolo SSH
+
+-Para crear alias para resimur las conexiones del protocolo ssh se debe configurar el archivo ~/.ssh/config y editar o agregar los siguientes campos:
+
+____________________________
+Host alias
+Hostname direccion_IP
+User usuario_ssh
+IdentityFile llave_privada
+Port numero_puerto
+____________________________
+
+Ejemplo:
+
+Host interfaces
+Hostname 35.170.67.35
+User admin
+IdentityFile /home/kevin/SKYFLOT/Servidores/interfaces_skyflot.cloud/GestionServidor_Interfas.pem
+Port 22
+
+===========================================================================================================================================
+		Crear una conexión sin contraseña via SSH
+
+-Este caso se usa cuando el usuario del sistema operartivo al que se desea realizar la conexión pide una clave para su ingreso(Casi siempre es la clave del usuario). El procedimiento es el siguiente:
+
+-Crear un par de claves pública-privada en el equipo destino con el siguiente comando:
+
+-NOTA: cuando le pida el 'passphrase' dejarlo vacio
+
+ssh-keygen -t rsa -b 4096
+
+-Luego asignar el id de la llave pública del usuario a esa llave (MEJORAR LOS TERMINOS DE LA EXPLICACION) con el siguiente comando:
+
+ssh-copy-id -i ~/.ssh/id_rsa.pub remote-host
+-Ejemplo:
+ssh-copy-id -i ~/.ssh/id_rsa.pub admin@192.168.1.2 (Preferiblemente la IP Pública si se accede afuera de la red local)
+===============================================================================================================
+				Borrar logs de Systemd Journal Logs
+
+-Estos se encuentran en /var/log/journal. Primero verificar cuanto espacio está usando los logs
+
+journalctl --disk-usage
+
+-Luego borrar los logs con los siguientes comandos:
+
+journalctl --rotate
+journalctl --vacuum-time=1s
+
+-rotate: El demonio borra todos los archivos actualmente activos.
+-vacuum-time=1s: Se eliminan todos los archivos guardados en el registro con una antigüedad de más de un segundo. También se admiten otros tiempos, por ejemplo: 2m (dos minutos), 5h (cinco horas), 3weeks (tres semanas), 5months (cinco meses).
+
+==============================================================================================================
+
+		Crear una carpeta compartida con NFS
+
+-PARTE DEL SERVIDOR:
+
+apt-get install nfs-kernel-server
+mkdir -p /nfs/compartido
+chown chown nobody:nogroup /nfs/compartido
+chmod 777 /nfs/compartido
+
+-Luego establecer los parametros para compartir
+
+nano /etc/exports
+
+-Para un cliente en particular: 
+
+/nfs/compartido        192.168.1.X(rw,sync,no_subtree_check)
+
+-Para toda la red;
+
+/nfs/compartido 192.168.1.0/24(rw,sync,no_subtree_check)
+
+-Donde:
+
+    ro: permiso de solo lectura del directorio
+    rw: permiso de lectura y escritura del directorio
+    subtree_check: especifica la verificación de subdirectorios
+    no_subtree_check: previene verificación de subdirectorios
+    sync: Escribe todos los cambios en el disco antes de aplicarlo
+    Async: ignora la verificación de sincronización para mejorar la velocidad
+
+
+-Luego reiniciar el servicio
+
+systemctl restart nfs-kernel-server
+
+-EXTRA permitir en el firewall:
+
+-Para un cliente:
+ufw allow from 192.168.1.14 to any port nfs
+-Para toda la red
+ufw allow from 192.168.1.0/24 to any port nfs
+
+-PARTE DEL CLIENTE:
+
+-Instalar y crear el directorio donde se montará la carpeta compartida
+
+apt-get install nfs-common
+mkdir –p /nfs/backups/
+
+-Luego montar la carpeta 
+mount 192.168.1.10:/nfs/compartido /nfs/backups
+
+-Montar de manera permanente el directorio compartido. Editar el fichero /etc/fstab:
+nano /etc/fstab
+
+-Escribir:
+172.17.0.18:/nfs/compartido       /nfs/backups      nfs auto,nofail,noatime,nolock,intr,tcp,actimeo=1800 0 0
+
+=========================================================================================================================================
+			Comando sed (Para reemplazar una cadena de texto dentro de un archivo)
+
+-Sintaxis:
+
+sed -i 's/texto_original/texto_a_remplazark/g' "archivo"
+
+-Ejemplo:
+
+sed -i 's/hola/hi/g' "pasar_hola_a_hi.txt"
+
+			Comando sed (Para mostrar un rango de lineas de un archivo)
+
+-Sintaxis:
+
+sed -n INICIO,FINp archivo
+
+-Ejemplo:
+
+sed -n 2,7p arhivo
+
+-Donde es "n" hace que no se vulque el archivo en la salida estandar, "p" hace que se imprima lo que se extrae, "2,7" es el rango el cual se quiere extraer.
+
+===================================================================================================================================================
+		Comando xargs (Construye argumentos a traves de una tuberia o una redirección)
+
+-Ejemplo, eliminando una serie de archivos que terminan en '.borrar' de un directorio con el comando rm y pasandole los argumentos de entrada de la salidad que da ls y grep, y construyendolo con xargs:
+
+ls | grep *.borrar$ | xargs rm
+
+-Con ls se listan todos los archivos no ocultos del directorio, con grep se filtran e imprime solo los archivos que terminen .borrar y con xargs se pasa ese resultado a rm.
+
+OJO cabe aclarar que se intento sin el xargs pero no funciona.
+
+=====================================================================================================================================================  
+				Generar una llave .pem a partir de una llave .ppk 
+
+-Install PuttyTools
+
+$ apt-get install putty-tools
+
+-Generate a pem file form the ppk
+
+$ puttygen server.ppk -O private-openssh -o server.pem  
+
+
+				Generar una llave .ppk a partir de una llave id_rsa
+
+$ puttygen id_rsa -o server.ppk
+
+==================================================================================================================
+					Run-level(Mejorar)
+
+RunLevel 	Significado
+
+S, s		Same as 1
+0		Shutdown system and turn power off
+1		Single user mode
+2		Multiple user, no NFS, only text login
+3		Multiple user, with NFS and network, only text login
+4		Not used
+5		Multiple user, with NFS and network, graphical login with X
+6		Reboot
+
+The current runlevel can be simply displayed with the runlevel command, as in:
+
+$ runlevel
+
+where the first character is the previous level; N means unknown.
+
+telinit can be used to change the runlevel of the system. For example, to go from runlevel 3 to runlevel 5, type:
+
+When the init process is started, the first thing it does is to read /etc/inittab. Historically, this file told init which scripts to run to bring the system up each runlevel, and was done with a series of lines, one for each runlevel:
+
+where:
+
+    id: a unique 1-4 character identification for the entry
+    runlevel(s): zero or more single character or digit identifiers which identify which runlevel the action will be taken for
+    action: describes the action to be taken
+    process: specifies the process to be executed.
+
+However, in more recent systems, the only un-commented line and the only thing being set in this file is the default runlevel with the line:
+
+This is the level to stop at when booting the system. However, if another value is specified on the kernel command line, init ignores the default. This is done by simply appending the right integer to the kernel command line. The default level is usually 5 for a full multi-user, networked graphical system, or 3 for a server without a graphical interface.
+
+systemd-based systems do not use /etc/inittab at all, and just contain a file with no uncommented content, so as to not break outdated scripts. However, some distributions still maintain the notion of runlevels, which are defined in terms of systemd targets, and so you can use commands like the telinit one described earlier.
+
+
+=====================================================================================================================================
+				Liberar memoria en cache
+
+Como root
+$ echo 3 > /proc/sys/vm/drop_caches
+=====================================================================================================================================
+				Crear un icono en las aplicaciones para el escritorio (.desktop)
+
+#Primer comando
+$ cat > ~/.local/share/applications/Nombre.desktop <<EOL
+
+
+>[Desktop Entry]
+>Encoding=UTF-8
+>Name=Nombre con que aparecera el icono en las aplicaciones
+>Exec=/opt/nombreapp/ejecutable
+>Icon=/opt/nombreapp/icono.png
+>Terminal=false
+>Type=Application
+>Categories=Network;WebBrowser;Favorite;
+>MimeType=text/html;text/xml;application/xhtml_xml;x-scheme-handler/http;x-scheme-handler/https;x-scheme-handler/ftp; X-Ayatana-Desktop-Shortcuts=NewWindow;NewIncognitos;
+>EOL
+
+==============================================================================================================================
+				Comando para error de Virtual Box de 64Bits
+
+$ sudo apt-get install -y linux-headers-amd64 linux-headers-$(uname -r)
+$ sudo /sbin/vboxconfig
+
+=========================================================================================================================================
+				Sintaxis para ejecutar un comando largo con "sudo"
+
+$ sudo bash -c "comando"
+
+Por ejemplo:
+
+$ sudo bash -c "echo 'prueba' > texto.txt"
+
+=============================================================================================================================
+Error:  
+
+sudo: /etc/sudoers is owned by uid 1000, should be 0 sudo: no valid sudoers sources found, quitting sudo: unable to initialize policy plugin
+
+Solucion(Hacer como root):
+$pkexec chown root:root /etc/sudoers /etc/sudoers.d -R
+
+=============================================================================================================================
+			Sincronizar dos carpetas de una red de manera recursiva con rsync
+
+rsync -a usuario@dominio:/carpeta-direccion/ /carpeta-destino
+
+Ejemplo:
+rsync -a /home/kevin/4Plus/ kevin@rokelr:/home/kevin/4Plus
+=============================================================================================================================
+				Para ver los puertos que estan en escucha
+
+sudo lsof -i -P -n | grep LISTEN
+
+
+=============================================================================================================================
+			Para ejecutar una accion o script de un usuario linux 
+
+
+$ sudo -Hu usuario script_a_ejecutar
+
+──────────────────
+──────────────────
+
+

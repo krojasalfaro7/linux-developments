@@ -1,0 +1,1 @@
+# Guia de comandos para LINUX-MSDOS-GIT-SQL(MYSQL/POSTGRESQL/MONGODB)

@@ -1,0 +1,424 @@
+<!doctype html>
+<html lang="es">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="profile" href="http://gmpg.org/xfn/11">
+		
+	<!-- This site is optimized with the Yoast SEO plugin v14.1 - https://yoast.com/wordpress/plugins/seo/ -->
+	<title>Procesos en segundo plano en Linux</title>
+	<meta name="description" content="Es posible ejecutar procesos en segundo plano en Linux. En este artículo encontrarás como gestionar estos procesos en segundo, para detenerlos o matarlos." />
+	<meta name="robots" content="index, follow" />
+	<meta name="googlebot" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1" />
+	<meta name="bingbot" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1" />
+	<link rel="canonical" href="https://www.atareao.es/como/procesos-en-segundo-plano-en-linux/" />
+	<meta property="og:locale" content="es_ES" />
+	<meta property="og:type" content="article" />
+	<meta property="og:title" content="Procesos en segundo plano en Linux" />
+	<meta property="og:description" content="Es posible ejecutar procesos en segundo plano en Linux. En este artículo encontrarás como gestionar estos procesos en segundo, para detenerlos o matarlos." />
+	<meta property="og:url" content="https://www.atareao.es/como/procesos-en-segundo-plano-en-linux/" />
+	<meta property="og:site_name" content="El atareao" />
+	<meta property="article:publisher" content="http://www.facebook.com/elatareao" />
+	<meta property="article:author" content="http://www.facebook.com/atareao" />
+	<meta property="article:published_time" content="2019-06-04T16:00:25+00:00" />
+	<meta property="article:modified_time" content="2019-06-03T21:14:35+00:00" />
+	<meta property="og:image" content="https://www.atareao.es/wp-content/uploads/2019/06/segundo-plano.jpg" />
+	<meta property="og:image:width" content="1200" />
+	<meta property="og:image:height" content="800" />
+	<meta name="twitter:card" content="summary_large_image" />
+	<meta name="twitter:creator" content="@atareao" />
+	<meta name="twitter:site" content="@atareao" />
+	<script type="application/ld+json" class="yoast-schema-graph">{"@context":"https://schema.org","@graph":[{"@type":"WebSite","@id":"https://www.atareao.es/#website","url":"https://www.atareao.es/","name":"El atareao","description":"Linux para legos.","potentialAction":[{"@type":"SearchAction","target":"https://www.atareao.es/?s={search_term_string}","query-input":"required name=search_term_string"}],"inLanguage":"es"},{"@type":"ImageObject","@id":"https://www.atareao.es/como/procesos-en-segundo-plano-en-linux/#primaryimage","inLanguage":"es","url":"https://www.atareao.es/wp-content/uploads/2019/06/segundo-plano.jpg","width":1200,"height":800},{"@type":"WebPage","@id":"https://www.atareao.es/como/procesos-en-segundo-plano-en-linux/#webpage","url":"https://www.atareao.es/como/procesos-en-segundo-plano-en-linux/","name":"Procesos en segundo plano en Linux","isPartOf":{"@id":"https://www.atareao.es/#website"},"primaryImageOfPage":{"@id":"https://www.atareao.es/como/procesos-en-segundo-plano-en-linux/#primaryimage"},"datePublished":"2019-06-04T16:00:25+00:00","dateModified":"2019-06-03T21:14:35+00:00","author":{"@id":"https://www.atareao.es/#/schema/person/81d218b4396d3005b1dd0720f6825420"},"description":"Es posible ejecutar procesos en segundo plano en Linux. En este art\u00edculo encontrar\u00e1s como gestionar estos procesos en segundo, para detenerlos o matarlos.","inLanguage":"es","potentialAction":[{"@type":"ReadAction","target":["https://www.atareao.es/como/procesos-en-segundo-plano-en-linux/"]}]},{"@type":["Person"],"@id":"https://www.atareao.es/#/schema/person/81d218b4396d3005b1dd0720f6825420","name":"atareao","image":{"@type":"ImageObject","@id":"https://www.atareao.es/#personlogo","inLanguage":"es","url":"https://secure.gravatar.com/avatar/4bf7baee328461d0ad61a9781526d7f6?s=96&d=mm&r=g","caption":"atareao"},"sameAs":["http://www.facebook.com/atareao","https://twitter.com/atareao"]}]}</script>
+	<!-- / Yoast SEO plugin. -->
+
+
+<link rel='dns-prefetch' href='//fonts.googleapis.com' />
+<link rel="alternate" type="application/rss+xml" title="El atareao &raquo; Feed" href="https://www.atareao.es/feed/" />
+<link rel="alternate" type="application/rss+xml" title="El atareao &raquo; Feed de los comentarios" href="https://www.atareao.es/comments/feed/" />
+<link rel="alternate" type="application/rss+xml" title="El atareao &raquo; Comentario Procesos en segundo plano en Linux del feed" href="https://www.atareao.es/como/procesos-en-segundo-plano-en-linux/feed/" />
+<link rel='stylesheet' id='wp-block-library-css'  href='https://www.atareao.es/wp-includes/css/dist/block-library/style.min.css?ver=5.4.1' type='text/css' media='all' />
+<link rel='stylesheet' id='atareao_201709-style-css'  href='https://www.atareao.es/wp-content/themes/WEB_201711/style.css?ver=5.4.1' type='text/css' media='all' />
+<link rel='stylesheet' id='wpb-google-fonts-css'  href='http://fonts.googleapis.com/css?family=Lato&#038;ver=5.4.1' type='text/css' media='all' />
+<script type='text/javascript' src='https://www.atareao.es/wp-includes/js/jquery/jquery.js?ver=1.12.4-wp'></script>
+<link rel='https://api.w.org/' href='https://www.atareao.es/wp-json/' />
+<link rel="EditURI" type="application/rsd+xml" title="RSD" href="https://www.atareao.es/xmlrpc.php?rsd" />
+<link rel="wlwmanifest" type="application/wlwmanifest+xml" href="https://www.atareao.es/wp-includes/wlwmanifest.xml" /> 
+<meta name="generator" content="WordPress 5.4.1" />
+<link rel='shortlink' href='https://www.atareao.es/?p=14157' />
+<link rel="icon" href="https://www.atareao.es/wp-content/uploads/2013/09/icono-256x256-120x120.png" sizes="32x32" />
+<link rel="icon" href="https://www.atareao.es/wp-content/uploads/2013/09/icono-256x256.png" sizes="192x192" />
+<link rel="apple-touch-icon" href="https://www.atareao.es/wp-content/uploads/2013/09/icono-256x256.png" />
+<meta name="msapplication-TileImage" content="https://www.atareao.es/wp-content/uploads/2013/09/icono-256x256.png" />
+<!-- Google Analytics On. -->
+<script type="text/javascript">
+	(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+		(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+		m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+	})(window,document,'script','//www.google-analytics.com/analytics.js','__gaTracker');
+
+	__gaTracker('create', 'UA-11534648-1', 'auto');
+	__gaTracker('set', 'forceSSL', true);
+	__gaTracker('require', 'displayfeatures');
+	__gaTracker('require', 'linkid', 'linkid.js');
+	__gaTracker('send','pageview');
+
+</script>
+</head>
+
+<body class="post-template-default single single-post postid-14157 single-format-standard">
+<div id="page" class="site">
+	<header id="masthead">
+		<div id="header-content">
+			<div class="site-branding">
+				<a href="https://www.atareao.es/" rel="home">
+					<div class="logo"></div>
+					<div class="site-data">
+						<h1 class="site-title for-desktop">El atareao</h1>
+						<p class="site-description for-desktop">Linux para legos.</p>
+					</div>
+				</a>
+			</div><!-- .site-branding -->
+
+			<nav id="site-navigation" class="main-navigation">
+				<div class="menu-inicio-container"><ul id="primary-menu" class="navbar-list"><li id="menu-item-9646" class="lapiz-main-menu menu-item menu-item-type-post_type menu-item-object-page current_page_parent menu-item-9646"><a href="https://www.atareao.es/blog/">Blog</a></li>
+<li id="menu-item-9828" class="info-main-menu menu-item menu-item-type-post_type menu-item-object-page menu-item-9828"><a href="https://www.atareao.es/quien-soy/">¿Quien soy?</a></li>
+<li id="menu-item-9647" class="email-main-menu menu-item menu-item-type-post_type menu-item-object-page menu-item-9647"><a href="https://www.atareao.es/contactar/">Contactar</a></li>
+<li id="menu-item-9651" class="dinero-main-menu menu-item menu-item-type-post_type menu-item-object-page menu-item-9651"><a href="https://www.atareao.es/donar/">Donar</a></li>
+</ul></div>			</nav><!-- #site-navigation -->
+		</div><!--.header-content-->
+	</header><!-- #masthead -->
+	<div id="main-content">
+		<div id="main-content-content">
+
+    <div id="primary" class="content-area">
+        <main id="main" class="site-main">
+
+            <div class='internal-menu'>
+        <ul>
+            <li ><a href='https://www.atareao.es/podcasts/' title="Podcasts"><span class='icono24 micromicro-icon'></span></i><span class='for-desktop'>Podcasts</span></a></li>
+            <li class='last active'><a href='https://www.atareao.es/como/' title="Como"><span class='icono24 llave-inglesa-icon'></span></i><span class='for-desktop'>Como</span></a></li>
+            <li ><a href='https://www.atareao.es/noticia/' title="Noticias"><span class='icono24 altavoz-icon'></span></i><span class='for-desktop'>Noticias</span></a></li>
+            <li ><a href='https://www.atareao.es/software/' title="Software"><span class='icono24 engranajes-icon'></span><span class='for-desktop'>Software</span></a></li>
+            <li ><a href='https://www.atareao.es/opinion/' title="Opinión"><span class='icono24 comentario-icon'></span><span class='for-desktop'>Opinión</span></a></li>
+            <li ><a href='https://www.atareao.es/personalizar/' title="Personalizar"><span class='icono24 imagen-icon'></span><span class='for-desktop'>Personalizar</span></a></li>
+        </ul>
+    </div>
+    <div id="article-container-alone"><article itemscope itemtype="http://schema.org/Article" id="post-14157" class="post-14157 post type-post status-publish format-standard has-post-thumbnail hentry category-como tag-sistemas">
+    <header class="entry-header">
+        <h1 itemprop="name" class="entry-title">Procesos en segundo plano en Linux</h1>        <div class="entry-meta">
+            <i><span class="icono16 calendario-icon"></span><span class="posted-on"> Publicado el <a href="https://www.atareao.es/como/procesos-en-segundo-plano-en-linux/" rel="bookmark"><time itemprop="datePublished" content="2019-06-04" class="entry-date published updated" datetime="2019-06-04T18:00:25+02:00">4 de junio de 2019</time></a></span><span class="byline"> por <span class="author vcard"><span itemprop="author" itemscope itemtype="http://schema.org/Person"><span itemprop="name">atareao</span></span></span></span> <span class="icono16 ojo-icon"></span> 27.7K</i> <a href="https://www.atareao.es/como/procesos-en-segundo-plano-en-linux/#disqus_thread">Deja un comentario</a><div class=social-medial-links><a href="https://twitter.com/intent/tweet/?url=https%3A%2F%2Fwww.atareao.es%2Fcomo%2Fprocesos-en-segundo-plano-en-linux%2F&via=atareao&text=Procesos en segundo plano en Linux "onclick="javascript:var left = (screen.width/2)-(600/2);var top = (screen.height/2)-(300/2);window.open(this.href, '', 'menubar=no,toolbar=no,resizable=yes,scrollbars=yes,height=300,width=600,left='+left+',top='+top+'');return false;" target="_blank" title="Compartir en Twitter" class="circle for-social-media-link twitter-icon bgc-twitter grow"><span class="symbol twitter-white"></span></a> <a href="tg://msg_url?url=https%3A%2F%2Fwww.atareao.es%2Fcomo%2Fprocesos-en-segundo-plano-en-linux%2F&text=Procesos en segundo plano en Linux title="Compartir en Telegram" class="circle for-social-media-link telegram-icon bgc-telegram grow"><span class="symbol telegram-white"></span></a> <a href="https://mastodon.social/share?text=Procesos en segundo plano en Linux&url=https%3A%2F%2Fwww.atareao.es%2Fcomo%2Fprocesos-en-segundo-plano-en-linux%2F" target="_blank" onclick="javascript:var left = (screen.width/2)-(600/2);var top = (screen.height/2)-(300/2);window.open(this.href, '', 'menubar=no,toolbar=no,resizable=yes,scrollbars=yes,height=300,width=600,left='+left+',top='+top+'');return false;" title="Compartir en Mastodon" class="circle for-social-media-link mastodon-icon bgc-mastodon grow"></a> <a href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fwww.atareao.es%2Fcomo%2Fprocesos-en-segundo-plano-en-linux%2F&t=Procesos en segundo plano en Linux" data-share-url="https://www.atareao.es/como/procesos-en-segundo-plano-en-linux/" onclick="javascript:var left = (screen.width/2)-(600/2);var top = (screen.height/2)-(300/2);window.open(this.href, '', 'menubar=no,toolbar=no,resizable=yes,scrollbars=yes,height=300,width=600,left='+left+',top='+top+'');return false;" target="_blank" title="Compartir en Facebook" class="circle for-social-media-link facebook-icon bgc-facebook grow"><span class="symbol facebook-white"></span></a></div>        </div><!-- .entry-meta -->
+            </header><!-- .entry-header -->
+
+    <div class="entry-content">
+        
+<p>Muchas veces olvido, que al contrario que yo, <strong>Linux es un sistema operativo multitarea</strong>. En este sentido, Linux está corriendo cientos de procesos de forma simultánea. No solo las aplicaciones que estás viendo o que estás utilizando, mas, muchas mas. Solo tienes que ejecutar el comando <code>top</code>, o <a href="https://www.atareao.es/software/utilidades/monitorizar-nuestro-sistema-con-htop/">htop</a> si lo prefieres, para que te hagas una idea de <strong>todo lo que está haciendo</strong> sin que tu apenas seas consciente. Se pueden ejecutar procesos en segundo plano en Linux.</p>
+
+
+
+<p>En este sentido, tienes que aprovechar todas las posibilidades que te ofrece. Y aunque tu no seas multitarea, o por lo menos ese es mi caso, si que puedes sacarle partido a Linux, añadiendo una tarea tras otra. Sin embargo, a diferencia de ti, mientras que tu se las añades de forma secuencial, Linux puede procesarlas en paralelo. Así, puedes lanzar varios scripts en paralelo aprovechando el tutorial sobre <a href="tps://www.atareao.es/tutorial/scripts-en-bash/">scripts en Bash</a>. Pero, ¿como iniciar varios scripts en paralelo?. La solución está en lanzarlos en segundo plano en Linux.</p>
+
+
+
+<p>Así, en este artículo vas a ver como lanzar procesos en segundo plano desde un terminal. Como saber que procesos tienes corriendo en ese terminal, como recuperar un proceso, y pasarlo de segundo plano a primer plano, y por supuesto, como matar un proceso que está trabajando en segundo plano.</p>
+
+
+
+<figure class="wp-block-image"><a class="highslide" href="https://www.atareao.es/wp-content/uploads/2019/06/segundo-plano.jpg"><img src="https://www.atareao.es/wp-content/uploads/2019/06/segundo-plano-1024x683.jpg" alt="Procesos en segundo plano en Linux" class="wp-image-14158" srcset="https://www.atareao.es/wp-content/uploads/2019/06/segundo-plano-1024x683.jpg 1024w, https://www.atareao.es/wp-content/uploads/2019/06/segundo-plano-300x200.jpg 300w, https://www.atareao.es/wp-content/uploads/2019/06/segundo-plano-768x512.jpg 768w, https://www.atareao.es/wp-content/uploads/2019/06/segundo-plano.jpg 1200w" sizes="(max-width: 1024px) 100vw, 1024px" /></a></figure>
+
+
+
+<span id="more-14157"></span>
+
+
+
+<h2 id="procesos-en-segundo-plano-en-linux">Procesos en segundo plano en Linux</h2>
+
+
+
+<h3 id="que-es-un-proceso-en-segundo-plano-en-linux">¿Que es un proceso en segundo plano en Linux?</h3>
+
+
+
+<p>Cuando lanzas un comando en el terminal, por ejemplo <code>ls</code> tienes que esperar hasta que termine. Por el contrario, un proceso que se ejecuta en segundo plano no interfiere en otras labores. Si lanzas un proceso en segundo plano desde un terminal, tu podrás continuar utilizando el terminal, mientras que este proceso se ejecuta por detrás, sin que tu seas consciente de lo que está sucediendo.</p>
+
+
+
+<h3 id="un-ejemplo">Un ejemplo</h3>
+
+
+
+<p>Para que puedas probar todo esto en primer plano, he escrito un sencillo script en Python, <code>test.py</code>, que puedes ver a continuación,</p>
+
+
+
+<pre class="wp-block-code"><code>#!/usr/bin/env python3
+import time
+import datetime
+
+counter = 0
+while True:
+    counter += 1
+    print('{0} - {1}'.format(counter, datetime.datetime.now()))
+    time.sleep(1)</code></pre>
+
+
+
+<p>Para ejecutar este script solo tienes que ejecutar esta instrucción en el terminal <code>python3 test.py</code>. Lo único que hace este script es imprimir un número consecutivo cada segundo seguido de la fecha y hora a la que lo ha hecho. Esto de forma ininterrumpida hasta que tu lo detengas. Así, por ejemplo la salida puede ser algo como lo que ves a continuación,</p>
+
+
+
+<pre class="wp-block-code"><code>1 - 2019-05-30 20:34:42.583360
+2 - 2019-05-30 20:34:43.584496
+3 - 2019-05-30 20:34:44.585719</code></pre>
+
+
+
+<p>Si lanzas este proceso de la forma habitual observarás que no puedes continuar utilizando el terminal. No lo puedes continuar utilizando porque este <em>script</em> en Python se ha apoderado del terminal. Hasta que no utilices el atajo de teclado <code>Ctrl+C</code> no se detendrá.</p>
+
+
+
+<h3 id="jobs">jobs</h3>
+
+
+
+<p>Sin embargo, en lugar de utilizar <code>Ctrl+C</code> prueba a utilizar <code>Ctrl+Z</code>. Lo que hace este atajo de teclado es enviar el proceso a segundo plano. Sin embargo ha detenido el proceso, y aunque está en segundo plano, no está trabajando para ti, realmente está detenido. Fíjate lo que se muestra en el terminal,</p>
+
+
+
+<pre class="wp-block-code"><code>^Z
+[1]+  Detenido                python3 test.py</code></pre>
+
+
+
+<p>Sin embargo, ahora ya puedes continuar utilizando el terminal. Para saber los procesos que tienes en segundo plano tienes que utilizar el comando <code>jobs</code>. En mi caso, al hacerlo el resultado es el que ves a continuación,</p>
+
+
+
+<pre class="wp-block-code"><code>$ jobs
+[1]+  Detenido                python3 test.py</code></pre>
+
+
+
+<h3 id="iniciar-el-proceso-en-segundo-plano">Iniciar el proceso en segundo plano</h3>
+
+
+
+<p>Probablemente te estés preguntado como puedes lanzar el proceso para que se continué ejecutando. Sencillo, para iniciar un proceso directamente en segundo plano solo tienes que añadir <code>&amp;</code> al final de la instrucción. Por ejemplo, para el caso anterior,</p>
+
+
+
+<pre class="wp-block-code"><code>python3 test.py &amp;</code></pre>
+
+
+
+<p>Si, ya te has dado cuenta, que el script está imprimiendo el resultado directamente en el terminal, lo que hace que sea incómodo trabajar. <em>Mi recomendación</em> es que envíe la salida a un archivo en lugar de a la salida estándar. Esto se hace de forma sencilla, tal y como lo explico en el capítulo sobre <a href="https://www.atareao.es/tutorial/terminal/redirigir-entrada-y-salida-en-linux/">redirigir entrada y salida</a>, del tutorial sobre <a href="https://www.atareao.es/tutorial/terminal/">el terminal</a>.</p>
+
+
+
+<p>Sea como sea, el primer paso es detener el proceso. Pero lo tienes en segundo plano, ¿como lo recuperamos? Primero utiliza <code>jobs</code> para saber el número de proceso, y posteriormente <code>fg %</code> seguido del número de proceso. Fíjate,</p>
+
+
+
+<pre class="wp-block-code"><code>$ jobs
+[1]+  Detenido                python3 test.py
+[2]-  Ejecutando              python3 test.py &amp;
+
+$ fg %2</code></pre>
+
+
+
+<p>Una vez ya lo tienes en primer plano lo puedes detener como habitualmente, utilizando el atajo de teclado <code>Ctrl+C</code>. Antes de avanzar con <code>fg</code> y su reverso <code>bg</code>, lanzaremos el proceso en segundo plano pero redirigiendo la salida a un archivo. Para hacer esto ejecuta la siguiente instrucción en el terminal,</p>
+
+
+
+<pre class="wp-block-code"><code>python3 test.py > salida.out 2>&amp;1 &amp;</code></pre>
+
+
+
+<p>Ahora utiliza de nuevo <code>jobs</code> para ver los procesos en segundo plano. Fíjate como lo tengo yo ahora,</p>
+
+
+
+<pre class="wp-block-code"><code>$ jobs
+[1]+  Detenido                python3 test.py
+[2]-  Ejecutando              python3 test.py > salida.out 2>&amp;1 &amp;</code></pre>
+
+
+
+<p>Como ves, el primero que inicié, hace varios párrafos, sigue detenido, mientras que el segundo se está ejecutando. El resultado lo puedes ver en <code>salida.out</code>. Si quieres ver de forma continua lo que hace, ejecuta la instrucción que te indico a continuación, tal y como te indiqué en el capítulo sobre <a href="https://www.atareao.es/tutorial/terminal/procesar-texto-con-head-tail-cat-split/">procesar texto</a> del tutorial sobre el <a href="https://www.atareao.es/tutorial/terminal/">terminal</a>.</p>
+
+
+
+<pre class="wp-block-code"><code>$ tail -f salida.out</code></pre>
+
+
+
+<p>Cuando te canses de ver lo que está sucediendo, no tienes mas que utilizar el atajo de teclado <code>Ctrl+C</code> para detenerlo.</p>
+
+
+
+<h3 id="fg-y-bg">fg y bg</h3>
+
+
+
+<p>Los comandos <code>fg</code> y <code>bg</code> te permitirán traer un proceso a primer plano o enviarlo a segundo plano respectivamente. Su uso es tan sencillo, como ejecutar la instrucción seguido de <code>%</code> y el número del proceso que obtenemos de <code>jobs</code>.</p>
+
+
+
+<p>Así si quisieras traer el proceso 2 a primer plano, tan solo tienes que ejecutar <code>fg %2</code>. Pero una vez en primer plano ¿como lo devuelves a segundo plano? Utilizando el atajo de teclado <code>Ctrl+Z</code>.</p>
+
+
+
+<p>Sin embargo al utilizar el atajo de teclado lo has detenido, y esa no era tu intención, tu querías que continuara. No hay problema, simplemente utiliza <code>bg %2</code> y el proceso que se pondrá en marcha de nuevo.</p>
+
+
+
+<p>Así la operativa ha sido,</p>
+
+
+
+<ul><li>traer el proceso a primer plano utilizando <code>fg %2</code></li><li>devolver el proceso a segundo plano con el atajo de teclado <code>Ctrl+Z</code></li><li>poner el proceso en marcha una vez que está en segundo plano con <code>bg %2</code>.</li></ul>
+
+
+
+<p>Ahora, si ejecutas de nuevo <code>jobs</code> te encontrarás en la siguiente situación,</p>
+
+
+
+<pre class="wp-block-code"><code>$ jobs
+[1]+  Detenido                python3 test.py
+[2]-  Ejecutando              python3 test.py > salida.out 2>&amp;1 &amp;</code></pre>
+
+
+
+<p>Ahora ya dominas perfectamente toda la operativa, puedes enviar un proceso a segundo plano, traerlo a primero, detenerlo, finalizarlo, ponerlo en marcha. ¿Pero que pasa si lo quieres finalizar directamente en segundo plano?</p>
+
+
+
+<h3 id="kill">kill</h3>
+
+
+
+<p>Para finalizar un proceso que está en segundo plano tienes que utilizar <code>kill %</code> seguido del número del proceso que quieres finalizar. Así, por ejemplo, si quisieras finalizar el proceso 1, la instrucción sería <code>kill %1</code>.</p>
+
+
+
+<h2 id="conclusión">Conclusión</h2>
+
+
+
+<p>La operativa es bastante sencilla, y te permite lanzar tantos procesos como necesites gestionándolos fácilmente con estas cuatro instrucciones,</p>
+
+
+
+<ul><li><code>jobs</code> para conocer los procesos en segundo plano</li><li><code>fg</code> te permite traer el proceso a primer plano</li><li><code>bg</code> puedes enviar el proceso a segundo plano</li><li><code>kill</code> para matar un proceso en segundo plano</li></ul>
+
+
+
+<p>Con esto puedes ir enviando uno u otro proceso a segundo plano, y recuperarlo cuando lo consideres.</p>
+    </div><!-- .entry-content -->
+    <footer class="entry-footer">
+        <span class="cat-links">Publicado en <a href="https://www.atareao.es/como/" rel="category tag">Como</a></span><span class="tags-links">Etiquetado <a href="https://www.atareao.es/tag/sistemas/" rel="tag">Sistemas</a></span>    </footer><!-- .entry-footer -->
+</article><!-- #post-14157 -->
+
+	<nav class="navigation post-navigation" role="navigation" aria-label="Entradas">
+		<h2 class="screen-reader-text">Navegación de entradas</h2>
+		<div class="nav-links"><div class="nav-previous"><a href="https://www.atareao.es/ubuntu/recuperar-la-contrasena-de-administrador-en-ubuntu/" rel="prev">Recuperar la contraseña de administrador en Ubuntu</a></div><div class="nav-next"><a href="https://www.atareao.es/como/gestion-de-usuarios-y-grupos-en-linux/" rel="next">Gestión de usuarios y grupos en Linux</a></div></div>
+	</nav>            <nav class="navigation post-navigation" role="navigation">
+                <articles>
+                                        <article>
+                        <a href="https://www.atareao.es/ubuntu/recuperar-la-contrasena-de-administrador-en-ubuntu/" title="Escucha este podcast">
+                            <img src="" width="80" height="80">
+                            <div>
+                                <h2>Recuperar la contraseña de administrador en Ubuntu</h2>
+                                <p>En este artículo encontrarás como recuperar la contraseña de administrador o root en Ubuntu de forma sencilla. También podrás cambiar contraseñas.</p>
+                            </div>
+                        </a>
+                    </article>
+                                        <article style='margin-top:10px;'>
+                        <a href="https://www.atareao.es/como/gestion-de-usuarios-y-grupos-en-linux/" class="highslide">
+                            <img src="https://www.atareao.es/wp-content/uploads/2019/06/usuarios-y-grupos-120x120.jpg" width="80" height="80">
+                            <div>
+                                <h2>Gestión de usuarios y grupos en Linux</h2>
+                                <p>Como gestionar usuarios y grupos en Linux. Como crear nuevos usuarios y grupos. Como añadir o eliminar un usuario a uno o mas grupos de forma sencilla.</p>
+                            </div>
+                        </a>
+                    </article>
+                                    </articles>
+            </nav>
+
+        <div id="disqus_thread">
+		</div>
+
+        </main><!-- #main -->
+    </div><!-- #primary -->
+
+
+<aside id="secondary" class="widget-area">
+	<section id="custom_html-3" class="widget_text widget widget_custom_html"><div class="textwidget custom-html-widget"><form role="search" method="get" action="https://www.atareao.es/">
+<span class="screen-reader-text" for="s">Buscar:</span>
+<input class="search-icon" value="" name="s" placeholder="Buscar" …="" title="Buscar:" type="search"/>
+<input class="u-hide" id="searchsubmit" value="Buscar" type="submit"/>
+</form></div></section><section id="custom_html-4" class="widget_text widget widget_custom_html"><div class="textwidget custom-html-widget"><div style="text-align:center">
+<br />
+<a href="https://www.atareao.es/donar/">
+<img class="grow" src="https://www.atareao.es/wp-content/uploads/2019/03/apoyame.jpg" alt="donación"/>	
+</a>
+	<span>Dona para ayudarme con este proyecto</span>
+</div></div></section></aside><!-- #secondary -->
+        </div><!-- #main-content-content -->
+    </div><!-- main-content -->
+    <footer id="colophon">
+        <div id="colophon-content">
+            <div class="license">
+                <ul>
+                    <li><a rel="license" href="http://creativecommons.org/licenses/by/4.0/"><div id="atareao_license"></div></a></li>
+                    <li>2010 - 2019</li>
+                    <li><a rel="author" href="https://lorenzocarbonell.com">Lorenzo Carbonell</a></li>
+                    <li><a href="https://www.atareao.es/politica-de-privacidad-cookies-aviso-legal-propiedad-intelectual/">Aviso legal</a></li>
+                </ul>
+            </div>
+            <div class="media-links">
+                <ul>
+                    <li><a href="http://youtube.com/c/atareao" title="El atareao en YouTube" rollapp-href="https://www.youtube.com/channel/UCP8dTCaLNJFxfklb_GNqe6A"><span class="icono24 youtube-icon"></span>YouTube</a></li>
+                    <li><a href="https://www.ivoox.com/podcast-atareao-version-podcast_sq_f1618463_1.html" title="iVoox" rollapp-href="https://www.ivoox.com/podcast-atareao-version-podcast_sq_f1618463_1.html"><span class="icono24 ivoox-icon"></span>iVoox</a></li>
+                    <li><a href="https://open.spotify.com/show/2v0fC8PyeeUTQDD67I0mKW" title="Spotify" rollapp-href="https://open.spotify.com/show/2v0fC8PyeeUTQDD67I0mKW"><span class="icono24 spotify-icon"></span>Spotify</a></li>
+                    <li><a href="https://itunes.apple.com/us/podcast/atareao-podcast/id1437197202?mt=2" title="Apple podcast" rollapp-href="https://itunes.apple.com/us/podcast/atareao-podcast/id1437197202?mt=2"><span class="icono24 itunes-icon"></span>Apple podcast</a></li>
+                    <li><a href="https://podcasts.google.com/?feed=aHR0cHM6Ly93d3cuYXRhcmVhby5lcy9tcDMtZmVlZC8" title="Google podcast" rollapp-href="https://podcasts.google.com/?feed=aHR0cHM6Ly93d3cuYXRhcmVhby5lcy9tcDMtZmVlZC8"><span class="icono24 google-podcast-icon"></span>Google podcast</a></li>
+                </ul>
+            </div>
+            <div class="social-links">
+                <ul>
+                    <li><a href="https://t.me/canal_atareao" title="Canal atareao en Telegram" rollapp-href="https://t.me/canal_atareao"><span class="icono24 telegram-icon"></span>Telegram</a></li>
+                    <li><a href="http://twitter.com/atareao" title="El atareao en Twitter" rollapp-href="http://twitter.com/atareao"><span class="icono24 twitter-icon"></span>Twitter</a></li>
+                    <li><a href="https://mastodon.social/@atareao" title="El atareao en Mastodon" rollapp-href="https://mastodon.social/@atareao"><span class="icono24 mastodon-icon"></span>Mastodon</a></li>
+                    <li><a href="https://github.com/atareao" title="El atareao en GitHub" rollapp-href="https://github.com/atareao"><span class="icono24 github-icon"></span>GitHub</a></li>
+                    <li><a href="http://www.facebook.com/elatareao" title="El atareao en Facebook" rollapp-href="http://www.facebook.com/elatareao"><span class="icono24 facebook-icon"></span></span>Facebook</a></li>
+                </ul>
+            </div>
+            <div class="contact">
+                <ul>
+                    <!--
+                    <li><a href="./feed/" title="Las RSS de El atareao" rollapp-href="http://www.atareao.es/feed/"><span class="symbol rss-white"></span>RSS</a></li>
+                    <li><a href="https://feedburner.google.com/fb/a/mailverify?uri=Atareao&amp;loc=es_ES" title="Suscríbete por correo" rollapp-href="https://feedburner.google.com/fb/a/mailverify?uri=Atareao&amp;loc=es_ES"><span class="symbol mail-white"></span>RSS by eMail</a></li>
+                    -->
+                    <li><a href="/suscribir/" title="Suscribirse" rollapp-href="http://www.atareao.es/suscribir/"><span class="icono24 pagina-icon"></span>Suscribir</a></li>
+                    <li><a href="/contactar/" title="Contacto" rollapp-href="http://www.atareao.es/contactar/"><span class="icono24 email-icon"></span>Contactar</a></li>
+                    <li><a href="/quien-soy/" title="Quien soy..." rollapp-href="http://www.atareao.es/quien-soy/"><span class="icono24 info-icon"></span>Quien soy</a></li>
+                </ul>
+            </div>
+        </div>
+    </footer><!-- #colophon -->
+</div><!-- #page -->
+<script type='text/javascript'>
+/* <![CDATA[ */
+var countVars = {"disqusShortname":"atareao"};
+var embedVars = {"disqusConfig":{"integration":"wordpress 3.0.16"},"disqusIdentifier":"14157 https:\/\/www.atareao.es\/?p=14157","disqusShortname":"atareao","disqusTitle":"Procesos en segundo plano en Linux","disqusUrl":"https:\/\/www.atareao.es\/como\/procesos-en-segundo-plano-en-linux\/","postId":"14157"};
+var dclCustomVars = {"dcl_progress_text":"Cargando..."};
+/* ]]> */
+</script>
+<script type='text/javascript' src='https://www.atareao.es/wp-content/plugins/disqus-conditional-load/assets/js/public/embed-scroll.min.js?ver=11.0.1'></script>
+<script type='text/javascript' async="async" src='https://www.atareao.es/wp-content/themes/WEB_201711/js/atareao.js'></script>
+</body>
+</html>
+
