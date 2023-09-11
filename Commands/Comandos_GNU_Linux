@@ -1528,7 +1528,43 @@ sudo lsof -i -P -n | grep LISTEN
 
 $ sudo -Hu usuario script_a_ejecutar
 
-──────────────────
-──────────────────
 
+==========================================================================================================================
+		Comandos para resetear contrase;a extraviada en windows desde Kali Linux
+
+>> reg save hklm\SYSTEM SYSTEM
+
+>> reg save hklm\SAM SAM
+
+
+
+kali
+>> samdump2 SYSTEM SAM>windows.txt
+>> john --format=LM --users=Administrador windows.txt
+
+
+
+
+OTRA FORMA
+
+cp cmd.exe cmd1.exe
+
+mv sethc.exe sethc2.exe
+
+mv cmd1.exe sethc.exe
+
+
+net user (Para ver los usuarios en mi caso cambiare la contraseña
+del usuario (usuario)
+net user usuario * (Le indicamos que deseamos cambiar la contraseña)
+
+
+
+
+
+chntpw SAM
+chntpw -u USUARIO SAM
+
+
+chntpw  -i  /media/Windows/System32/config/SAM
 
